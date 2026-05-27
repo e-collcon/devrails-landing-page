@@ -1,29 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { DevRailsLanding } from "@/components/devrails/DevRailsLanding";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "DevRails — Stay in GCP free tier for $1/month" },
+      {
+        name: "description",
+        content:
+          "DevRails is lightweight GCP FinOps for builders. Stay inside the free tier — or under your own monthly cap — for $1/month. Coming soon from Coll-Con.",
+      },
+      { property: "og:title", content: "DevRails — GCP FinOps for builders" },
+      {
+        property: "og:description",
+        content:
+          "Stay inside the GCP free tier or cap your monthly bill — for $1/month. By builders, for builders.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
     ],
+    links: [{ rel: "canonical", href: "/" }],
   }),
-  component: Index,
+  component: DevRailsLanding,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}

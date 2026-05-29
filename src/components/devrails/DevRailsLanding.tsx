@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
-  Flame,
   ArrowRight,
+  Hexagon,
   Github,
   ChevronDown,
   Check,
@@ -35,7 +35,7 @@ function WordMark({ size = "md" }: { size?: "sm" | "md" }) {
   return (
     <div className="flex items-center gap-2">
       <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-flame/10">
-        <Flame className="h-4 w-4 text-flame" strokeWidth={2.2} />
+        <Hexagon className="h-4 w-4 text-flame" strokeWidth={2.2} />
       </span>
       <span className={`${text} font-semibold tracking-tight text-ink`}>
         DevRails
@@ -876,7 +876,7 @@ function Footer() {
             <Lock className="h-3.5 w-3.5 text-flame" /> Least-privilege access
           </span>
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 text-[13px] text-ink">
-            <Flame className="h-3.5 w-3.5 text-flame" /> Part of Coll-Con
+            <Hexagon className="h-3.5 w-3.5 text-flame" /> Part of Coll-Con
           </span>
         </div>
 

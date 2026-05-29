@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -58,42 +59,43 @@
   --color-ink-muted: var(--ink-muted);
   --color-flame: var(--flame);
   --color-flame-hover: var(--flame-hover);
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 :root {
   --radius: 0.75rem;
   /* Surfaces */
-  --background: oklch(1 0 0);                  /* #FFFFFF */
-  --surface: oklch(0.985 0 0);                 /* #FAFAFA */
-  --surface-2: oklch(0.975 0 0);               /* #F7F7F7 */
-  --grid: oklch(0.955 0 0);                    /* #EFEFEF */
+  --background: #ffffff;
+  --surface: #f8fafc;                          /* Soft White */
+  --surface-2: #f1f5f9;                        /* Slate 100 */
+  --grid: #e2e8f0;                             /* Slate 200 */
   /* Text */
-  --foreground: oklch(0.205 0 0);              /* #1F1F1F */
-  --ink: oklch(0.205 0 0);
-  --ink-soft: oklch(0.41 0 0);                 /* #555 */
-  --ink-muted: oklch(0.68 0 0);                /* #9A9A9A */
-  /* Brand */
-  --flame: oklch(0.68 0.2 38);                 /* ~#FF5A1F */
-  --flame-hover: oklch(0.63 0.2 36);           /* ~#E94E12 */
+  --foreground: #0f172a;                       /* Deep Navy */
+  --ink: #0f172a;
+  --ink-soft: #334155;                         /* Slate */
+  --ink-muted: #64748b;                        /* Slate 500 */
+  /* Brand — Electric Blue accent (token name kept for compatibility) */
+  --flame: #2563ff;                            /* Electric Blue */
+  --flame-hover: #1d4ed8;                      /* Electric Blue hover */
+  --glow: #67e8f9;                             /* Cyan Glow accent */
   /* Shadcn */
-  --card: oklch(1 0 0);
+  --card: #ffffff;
   --card-foreground: var(--ink);
-  --popover: oklch(1 0 0);
+  --popover: #ffffff;
   --popover-foreground: var(--ink);
   --primary: var(--flame);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0 0);                /* #F2F2F2 */
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.97 0 0);
+  --muted: #f8fafc;
   --muted-foreground: var(--ink-soft);
-  --accent: oklch(0.95 0 0);
+  --accent: #e0f2fe;
   --accent-foreground: var(--ink);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.918 0 0);                  /* #EAEAEA */
-  --input: oklch(0.918 0 0);
+  --border: #e2e8f0;
+  --input: #e2e8f0;
   --ring: var(--flame);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -148,8 +150,17 @@
 
 /* Soft card shadow */
 .shadow-soft  { box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
-.shadow-card  { box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
-.shadow-flame { box-shadow: 0 10px 40px -10px color-mix(in oklab, var(--flame) 50%, transparent); }
+.shadow-card  { box-shadow: 0 20px 60px -20px rgba(15, 23, 42, 0.18); }
+.shadow-flame { box-shadow: 0 14px 40px -14px color-mix(in oklab, var(--flame) 55%, transparent); }
+.shadow-glow  { box-shadow: 0 0 0 1px rgba(37,99,255,0.08), 0 18px 50px -20px color-mix(in oklab, var(--glow) 60%, transparent); }
+
+/* Glass surface (future-ready for glassmorphism) */
+.glass {
+  background: color-mix(in oklab, #ffffff 70%, transparent);
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  border: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
+}
 
 /* Bracket label e.g. [ 200 OK ] */
 .bracket-label {

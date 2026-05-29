@@ -35,7 +35,7 @@ function WordMark({ size = "md" }: { size?: "sm" | "md" }) {
   return (
     <div className="flex items-center gap-2">
       <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-flame/10">
-        <Flame className="h-4 w-4 text-flame" strokeWidth={2.2} />
+        <Hexagon className="h-4 w-4 text-flame" fill="currentColor" strokeWidth={2.2} />
       </span>
       <span className={`${text} font-semibold tracking-tight text-ink`}>
         DevRails
@@ -77,14 +77,14 @@ function Nav() {
             <a
               key={l}
               href={`#${l.toLowerCase().replace(/\s/g, "-")}`}
-              className="text-[14px] font-medium text-ink transition-colors hover:text-flame"
+              className="text-[14px] font-medium text-ink transition-colors hover:text-flame" fill="currentColor"
             >
               {l}
             </a>
           ))}
           <a
             href="#docs"
-            className="flex items-center gap-1 text-[14px] font-medium text-ink transition-colors hover:text-flame"
+            className="flex items-center gap-1 text-[14px] font-medium text-ink transition-colors hover:text-flame" fill="currentColor"
           >
             Docs <ChevronDown className="h-3.5 w-3.5" />
           </a>
@@ -145,7 +145,7 @@ function Hero() {
         {/* H1 */}
         <h1 className="mx-auto mt-7 max-w-[920px] text-center text-[44px] font-bold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[60px] md:text-[72px]">
           Stay in the GCP free tier.{" "}
-          <span className="text-flame">Or under a dollar.</span>
+          <span className="text-flame" fill="currentColor">Or under a dollar.</span>
         </h1>
 
         <p className="mx-auto mt-6 max-w-[680px] text-center text-[18px] leading-[1.55] text-ink-soft md:text-[20px]">
@@ -269,7 +269,7 @@ function FloatingStatusCard({ className = "" }: { className?: string }) {
       </div>
       <div className="mt-3 font-mono text-[13px] leading-relaxed text-ink-soft">
         <div><span className="text-ink-muted">01</span>  rule: <span className="text-ink">"free-tier-only"</span></div>
-        <div><span className="text-ink-muted">02</span>  cap:  <span className="text-flame">$0.00</span></div>
+        <div><span className="text-ink-muted">02</span>  cap:  <span className="text-flame" fill="currentColor">$0.00</span></div>
         <div><span className="text-ink-muted">03</span>  on_breach: <span className="text-ink">disable_billing()</span></div>
       </div>
     </div>
@@ -344,7 +344,7 @@ function SectionHeader({
       </div>
       <h2 className="mt-5 text-[36px] font-bold leading-[1.1] tracking-[-0.02em] text-ink md:text-[52px]">
         {title}{" "}
-        {accent && <span className="text-flame">{accent}</span>}
+        {accent && <span className="text-flame" fill="currentColor">{accent}</span>}
       </h2>
       {subtitle && (
         <p className="mx-auto mt-5 max-w-[640px] text-[17px] leading-[1.55] text-ink-soft md:text-[18px]">
@@ -478,7 +478,7 @@ function LogRow({
     tag === "ok"
       ? "bg-secondary text-ink"
       : tag === "warn"
-      ? "bg-flame/15 text-flame"
+      ? "bg-flame/15 text-flame" fill="currentColor"
       : tag === "act"
       ? "bg-ink text-white"
       : "bg-ink text-white";
@@ -674,7 +674,7 @@ function Pricing() {
                 "Disable-billing on breach",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2">
-                  <Check className="mt-0.5 h-4 w-4 text-flame" />
+                  <Check className="mt-0.5 h-4 w-4 text-flame" fill="currentColor" />
                   <span>{f}</span>
                 </li>
               ))}
@@ -714,7 +714,7 @@ function Pricing() {
                 "Lifetime price lock",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2">
-                  <Check className="mt-0.5 h-4 w-4 text-flame" />
+                  <Check className="mt-0.5 h-4 w-4 text-flame" fill="currentColor" />
                   <span>{f}</span>
                 </li>
               ))}
@@ -865,18 +865,18 @@ function Footer() {
       <div className={`${SECTION_WRAP} pt-20 pb-12`}>
         <h3 className="max-w-[820px] text-[32px] font-bold leading-[1.1] tracking-[-0.02em] text-ink md:text-[44px]">
           The easiest way to keep your{" "}
-          <span className="text-flame">GCP bill</span> under a dollar.
+          <span className="text-flame" fill="currentColor">GCP bill</span> under a dollar.
         </h3>
 
         <div className="mt-10 flex flex-wrap items-center gap-3">
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 text-[13px] text-ink">
-            <Cloud className="h-3.5 w-3.5 text-flame" /> Built on GCP
+            <Cloud className="h-3.5 w-3.5 text-flame" fill="currentColor" /> Built on GCP
           </span>
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 text-[13px] text-ink">
-            <Lock className="h-3.5 w-3.5 text-flame" /> Least-privilege access
+            <Lock className="h-3.5 w-3.5 text-flame" fill="currentColor" /> Least-privilege access
           </span>
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 text-[13px] text-ink">
-            <Flame className="h-3.5 w-3.5 text-flame" /> Part of Coll-Con
+            <Hexagon className="h-3.5 w-3.5 text-flame" fill="currentColor" /> Part of Coll-Con
           </span>
         </div>
 
@@ -932,7 +932,7 @@ function FooterCol({ heading, links }: { heading: string; links: string[] }) {
       <ul className="mt-4 space-y-2.5">
         {links.map((l) => (
           <li key={l}>
-            <a href="#" className="text-[14px] text-ink-soft transition-colors hover:text-flame">
+            <a href="#" className="text-[14px] text-ink-soft transition-colors hover:text-flame" fill="currentColor">
               {l}
             </a>
           </li>
@@ -947,7 +947,7 @@ function SocialIcon({ label, children }: { label: string; children: React.ReactN
     <a
       href="#"
       aria-label={label}
-      className="grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-ink transition-colors hover:border-flame hover:text-flame"
+      className="grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-ink transition-colors hover:border-flame hover:text-flame" fill="currentColor"
     >
       {children}
     </a>

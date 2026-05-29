@@ -59,6 +59,7 @@
   --color-ink-muted: var(--ink-muted);
   --color-flame: var(--flame);
   --color-flame-hover: var(--flame-hover);
+  --color-glow: var(--glow);
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, SFMono-Regular, monospace;
 }

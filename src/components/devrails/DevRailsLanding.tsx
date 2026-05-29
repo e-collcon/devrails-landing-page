@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
-  Flame,
   ArrowRight,
+  Hexagon,
   Github,
   ChevronDown,
   Check,

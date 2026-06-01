@@ -898,51 +898,220 @@ function FAQ() {
   );
 }
 
-/* ---------- 11 Final CTA ---------- */
+/* ---------- 11 Final CTA (Waitlist form) ----------
+   Native on-site form. Designed to be wired to Supabase later via a
+   createServerFn that inserts into a `waitlist` table.
+----------------------------------------------------*/
+const ROLE_OPTIONS = [
+  "Solo builder",
+  "Indie hacker",
+  "Student",
+  "Prototype team",
+  "Small startup",
+  "Other",
+];
+const CONCERN_OPTIONS = [
+  "Egress",
+  "Cloud Run or Functions loop",
+  "BigQuery query",
+  "Storage or logs",
+  "Forgotten resources",
+  "Other",
+];
+
 function FinalCTA() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [concern, setConcern] = useState("");
+  const [projects, setProjects] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg("");
+    if (!isValidEmail(email)) {
+      setStatus("error");
+      setErrorMsg("Please enter a valid email address.");
+      return;
+    }
+    if (!consent) {
+      setStatus("error");
+      setErrorMsg("Please agree to receive DevRails updates.");
+      return;
+    }
+    setStatus("submitting");
+    try {
+      // TODO: wire to Supabase via createServerFn — insert into `waitlist` table.
+      await new Promise((r) => setTimeout(r, 600));
+      setStatus("success");
+    } catch {
+      setStatus("error");
+      setErrorMsg("Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <section id="waitlist" className="relative overflow-hidden border-y border-border bg-surface">
       <div className="pointer-events-none absolute inset-0 tech-grid tech-grid-fade opacity-60" />
-      <div className="pointer-events-none absolute inset-0">
-        <span className="bracket-label absolute left-[8%] top-[24%]">[ USAGE WATCHED ]</span>
-        <span className="bracket-label absolute right-[10%] top-[18%]">[ ALERT READY ]</span>
-        <span className="bracket-label absolute left-[18%] bottom-[22%]">[ GUARDRAIL ACTIVE ]</span>
-        <span className="bracket-label absolute right-[14%] bottom-[28%]">[ $1/MONTH ]</span>
-        <span className="crosshair absolute left-[26%] top-[44%]" />
-        <span className="crosshair absolute right-[24%] bottom-[40%]" />
-      </div>
-      <div className={`${SECTION_WRAP} relative z-10 py-24 text-center md:py-32`}>
-        <h2 className="mx-auto mt-2 max-w-[760px] text-[40px] font-bold leading-[1.1] tracking-[-0.02em] text-ink md:text-[56px]">
-          Build on GCP without{" "}
-          <span className="text-flame">bill anxiety.</span>
-        </h2>
-        <p className="mx-auto mt-5 max-w-[600px] text-[17px] text-ink-soft">
-          DevRails helps you watch usage, catch runaway patterns, and keep experiments on
-          rails — for $1/month.
-        </p>
+      <div className={`${SECTION_WRAP} relative z-10 py-24 md:py-32`}>
+        <div className="mx-auto max-w-[640px] text-center">
+          <div className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-muted">
+            // EARLY ACCESS
+          </div>
+          <h2 className="mx-auto mt-4 max-w-[640px] text-[40px] font-bold leading-[1.1] tracking-[-0.02em] text-ink md:text-[52px]">
+            Build on GCP without{" "}
+            <span className="text-flame">bill anxiety.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-[560px] text-[17px] text-ink-soft">
+            Join the DevRails waitlist. We&apos;ll send updates as early access opens.
+          </p>
+        </div>
 
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="mx-auto mt-8 flex w-full max-w-[480px] items-center gap-2 rounded-[14px] border border-border bg-white p-2 shadow-soft"
-        >
-          <input
-            type="email"
-            required
-            placeholder="you@yourstartup.dev"
-            className="h-11 flex-1 bg-transparent px-3 text-[15px] text-ink placeholder:text-ink-muted focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-flame px-4 text-[14px] font-semibold text-white hover:bg-flame-hover shadow-flame"
-          >
-            Get early access <ArrowRight className="h-4 w-4" />
-          </button>
-        </form>
-        <p className="mt-4 font-mono text-[12px] text-ink-muted">
-          // founding builder access opens soon
-        </p>
+        <div className="mx-auto mt-10 max-w-[560px]">
+          {status === "success" ? (
+            <div
+              role="status"
+              aria-live="polite"
+              className="rounded-[18px] border border-border bg-white p-8 text-center shadow-soft"
+            >
+              <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-flame/10">
+                <Check className="h-6 w-6 text-flame" />
+              </div>
+              <h3 className="mt-4 text-[20px] font-semibold tracking-tight text-ink">
+                You&apos;re on the list.
+              </h3>
+              <p className="mt-2 text-[15px] text-ink-soft">
+                We&apos;ll send DevRails updates as early access opens.
+              </p>
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              className="space-y-4 rounded-[18px] border border-border bg-white p-6 shadow-soft md:p-8"
+            >
+              <FormRow label="Email address" htmlFor="wl-email" required>
+                <input
+                  id="wl-email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@yourstartup.dev"
+                  className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                />
+              </FormRow>
+              <FormRow label="Name" htmlFor="wl-name">
+                <input
+                  id="wl-name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Optional"
+                  className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                />
+              </FormRow>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <FormRow label="Role" htmlFor="wl-role">
+                  <select
+                    id="wl-role"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                  >
+                    <option value="">Select role (optional)</option>
+                    {ROLE_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
+                  </select>
+                </FormRow>
+                <FormRow label="Main GCP concern" htmlFor="wl-concern">
+                  <select
+                    id="wl-concern"
+                    value={concern}
+                    onChange={(e) => setConcern(e.target.value)}
+                    className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                  >
+                    <option value="">Select concern (optional)</option>
+                    {CONCERN_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
+                  </select>
+                </FormRow>
+              </div>
+              <FormRow label="Number of GCP projects or environments" htmlFor="wl-projects">
+                <input
+                  id="wl-projects"
+                  type="number"
+                  min={0}
+                  value={projects}
+                  onChange={(e) => setProjects(e.target.value)}
+                  placeholder="Optional"
+                  className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                />
+              </FormRow>
+
+              <label className="flex items-start gap-2.5 text-[13.5px] text-ink-soft">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 cursor-pointer rounded border-border text-flame focus:ring-flame/30"
+                />
+                <span>I agree to receive updates about DevRails early access.</span>
+              </label>
+
+              {status === "error" && errorMsg && (
+                <div
+                  role="alert"
+                  className="flex items-start gap-2 rounded-[10px] border border-danger-border bg-danger-soft p-3 text-[13px] text-danger-text"
+                >
+                  <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
+                  <span>{errorMsg}</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-[10px] bg-flame px-4 text-[14px] font-semibold text-white transition-colors hover:bg-flame-hover shadow-flame disabled:opacity-60"
+              >
+                {status === "submitting" ? "Submitting…" : (
+                  <>Get early access <ArrowRight className="h-4 w-4" /></>
+                )}
+              </button>
+
+              <p className="text-center font-mono text-[11px] text-ink-muted">
+                // No spam. DevRails is currently in active development.
+              </p>
+            </form>
+          )}
+        </div>
       </div>
     </section>
+  );
+}
+
+function FormRow({
+  label,
+  htmlFor,
+  required,
+  children,
+}: {
+  label: string;
+  htmlFor: string;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label htmlFor={htmlFor} className="mb-1.5 block text-[13px] font-medium text-ink">
+        {label}
+        {required && <span className="ml-1 text-flame">*</span>}
+      </label>
+      {children}
+    </div>
   );
 }
 

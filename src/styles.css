@@ -60,6 +60,11 @@
   --color-flame: var(--flame);
   --color-flame-hover: var(--flame-hover);
   --color-glow: var(--glow);
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-border: var(--danger-border);
+  --color-danger-text: var(--danger-text);
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, SFMono-Regular, monospace;
 }
@@ -80,6 +85,15 @@
   --flame: #2563ff;                            /* Electric Blue */
   --flame-hover: #1d4ed8;                      /* Electric Blue hover */
   --glow: #67e8f9;                             /* Cyan Glow accent */
+  /* Danger (alert red / hard killswitch) */
+  --danger: #dc2626;
+  --danger-hover: #b91c1c;
+  --danger-soft: #fef2f2;
+  --danger-border: #fecaca;
+  --danger-text: #991b1b;
+  --danger-dark-accent: #f87171;
+  --danger-dark-bg: rgba(248, 113, 113, 0.12);
+  --danger-dark-border: rgba(248, 113, 113, 0.35);
   /* Shadcn */
   --card: #ffffff;
   --card-foreground: var(--ink);
@@ -193,3 +207,6 @@
   50%      { opacity: 0.3; }
 }
 .animate-pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+/* Ensure sticky navbar (72px) doesn't cover anchored section headings */
+section[id] { scroll-margin-top: 88px; }

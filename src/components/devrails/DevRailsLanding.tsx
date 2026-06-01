@@ -1006,48 +1006,48 @@ function FinalCTA() {
                   className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
                 />
               </FormRow>
-              <FormRow label="Name" htmlFor="wl-name">
+              <FormRow label="Name (optional)" htmlFor="wl-name">
                 <input
                   id="wl-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Optional"
+                  placeholder="John Doe"
                   className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
                 />
               </FormRow>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <FormRow label="Role" htmlFor="wl-role">
+                <FormRow label="Role (optional)" htmlFor="wl-role">
                   <select
                     id="wl-role"
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
-                    className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                    className={`h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20 ${role ? "text-ink" : "text-ink-muted"}`}
                   >
-                    <option value="">Select role (optional)</option>
+                    <option value="" disabled>Select role</option>
                     {ROLE_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
                   </select>
                 </FormRow>
-                <FormRow label="Main GCP concern" htmlFor="wl-concern">
+                <FormRow label="Main GCP concern (optional)" htmlFor="wl-concern">
                   <select
                     id="wl-concern"
                     value={concern}
                     onChange={(e) => setConcern(e.target.value)}
-                    className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                    className={`h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20 ${concern ? "text-ink" : "text-ink-muted"}`}
                   >
-                    <option value="">Select concern (optional)</option>
+                    <option value="" disabled>Select concern</option>
                     {CONCERN_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
                   </select>
                 </FormRow>
               </div>
-              <FormRow label="Number of GCP projects or environments" htmlFor="wl-projects">
+              <FormRow label="Number of GCP projects or environments (optional)" htmlFor="wl-projects">
                 <input
                   id="wl-projects"
                   type="number"
                   min={0}
                   value={projects}
                   onChange={(e) => setProjects(e.target.value)}
-                  placeholder="Optional"
+                  placeholder="Click to select"
                   className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
                 />
               </FormRow>

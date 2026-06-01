@@ -144,8 +144,8 @@ function Nav() {
 /* ---------- Hero ---------- */
 function Hero() {
   return (
-    <section id="product" className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 tech-grid tech-grid-fade" />
+    <section id="product" className="section-grid relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 tech-grid tech-grid-fade opacity-60" />
       <div className="pointer-events-none absolute inset-0">
         <span className="bracket-label absolute left-[6%] top-[18%]">[ GCP.USAGE ]</span>
         <span className="bracket-label absolute right-[8%] top-[14%]">[ ALWAYS FREE ]</span>
@@ -388,7 +388,7 @@ function TrustCredibility() {
     },
   ];
   return (
-    <section className={`${SECTION_PAD} border-y border-border bg-surface`}>
+    <section className={`${SECTION_PAD} section-grid border-y border-border bg-surface`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// BUILT FOR BUILDERS"
@@ -456,7 +456,7 @@ function Problem() {
     },
   ];
   return (
-    <section className={SECTION_PAD}>
+    <section className={`${SECTION_PAD} section-grid`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// THE PROBLEM"
@@ -528,7 +528,7 @@ function HowItWorks() {
     },
   ];
   return (
-    <section id="how-it-works" className={`${SECTION_PAD} border-y border-border bg-surface`}>
+    <section id="how-it-works" className={`${SECTION_PAD} section-grid border-y border-border bg-surface`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// HOW IT WORKS"
@@ -606,7 +606,7 @@ function Features() {
   ];
 
   return (
-    <section id="features" className={SECTION_PAD}>
+    <section id="features" className={`${SECTION_PAD} section-grid`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// FEATURES"
@@ -710,7 +710,7 @@ function UseCases() {
     { icon: <Cloud className="h-4 w-4" />, title: "GCP experimenters", body: "Try Cloud Run, Functions, BigQuery, Pub/Sub, and Storage with clearer guardrails." },
   ];
   return (
-    <section className={`${SECTION_PAD} border-y border-border bg-surface`}>
+    <section className={`${SECTION_PAD} section-grid border-y border-border bg-surface`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// USE CASES"
@@ -746,7 +746,7 @@ function Pricing() {
     "Access to early GCP coverage expansions",
   ];
   return (
-    <section id="pricing" className={SECTION_PAD}>
+    <section id="pricing" className={`${SECTION_PAD} section-grid`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// PRICING"
@@ -814,7 +814,7 @@ function Pricing() {
 /* ---------- 09 Coll-Con context ---------- */
 function CollCon() {
   return (
-    <section className={`${SECTION_PAD} border-y border-border bg-surface`}>
+    <section className={`${SECTION_PAD} section-grid border-y border-border bg-surface`}>
       <div className={SECTION_WRAP}>
         <div className="mx-auto max-w-[820px] text-center">
           <div className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-muted">
@@ -859,7 +859,7 @@ const FAQS: { q: string; a: string }[] = [
 function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className={SECTION_PAD}>
+    <section id="faq" className={`${SECTION_PAD} section-grid`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// FAQ"
@@ -956,7 +956,7 @@ function FinalCTA() {
   };
 
   return (
-    <section id="waitlist" className="relative overflow-hidden border-y border-border bg-surface">
+    <section id="waitlist" className="section-grid relative overflow-hidden border-y border-border bg-surface">
       <div className="pointer-events-none absolute inset-0 tech-grid tech-grid-fade opacity-60" />
       <div className={`${SECTION_WRAP} relative z-10 py-24 md:py-32`}>
         <div className="mx-auto max-w-[640px] text-center">
@@ -1006,48 +1006,48 @@ function FinalCTA() {
                   className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
                 />
               </FormRow>
-              <FormRow label="Name" htmlFor="wl-name">
+              <FormRow label="Name (optional)" htmlFor="wl-name">
                 <input
                   id="wl-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Optional"
+                  placeholder="John Doe"
                   className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
                 />
               </FormRow>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <FormRow label="Role" htmlFor="wl-role">
+                <FormRow label="Role (optional)" htmlFor="wl-role">
                   <select
                     id="wl-role"
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
-                    className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                    className={`h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20 ${role ? "text-ink" : "text-ink-muted"}`}
                   >
-                    <option value="">Select role (optional)</option>
+                    <option value="" disabled>Select role</option>
                     {ROLE_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
                   </select>
                 </FormRow>
-                <FormRow label="Main GCP concern" htmlFor="wl-concern">
+                <FormRow label="Main GCP concern (optional)" htmlFor="wl-concern">
                   <select
                     id="wl-concern"
                     value={concern}
                     onChange={(e) => setConcern(e.target.value)}
-                    className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                    className={`h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20 ${concern ? "text-ink" : "text-ink-muted"}`}
                   >
-                    <option value="">Select concern (optional)</option>
+                    <option value="" disabled>Select concern</option>
                     {CONCERN_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
                   </select>
                 </FormRow>
               </div>
-              <FormRow label="Number of GCP projects or environments" htmlFor="wl-projects">
+              <FormRow label="Number of GCP projects or environments (optional)" htmlFor="wl-projects">
                 <input
                   id="wl-projects"
                   type="number"
                   min={0}
                   value={projects}
                   onChange={(e) => setProjects(e.target.value)}
-                  placeholder="Optional"
+                  placeholder="Click to select"
                   className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
                 />
               </FormRow>
@@ -1206,12 +1206,29 @@ function FooterCol({
   );
 }
 
-function SocialIcon({ label, children }: { label: string; children: React.ReactNode }) {
+function SocialIcon({
+  label,
+  href,
+  children,
+}: {
+  label: string;
+  href?: string;
+  children: React.ReactNode;
+}) {
+  const isPlaceholder = !href;
   return (
     <a
-      href="#"
-      aria-label={label}
-      className="grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-ink transition-colors hover:border-flame hover:text-flame"
+      href={href ?? "#"}
+      aria-label={isPlaceholder ? `${label} — coming soon` : label}
+      title={isPlaceholder ? `${label} — soon` : label}
+      aria-disabled={isPlaceholder || undefined}
+      onClick={isPlaceholder ? (e) => e.preventDefault() : undefined}
+      tabIndex={isPlaceholder ? -1 : undefined}
+      className={`grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-ink transition-colors ${
+        isPlaceholder
+          ? "cursor-not-allowed opacity-60"
+          : "hover:border-flame hover:text-flame"
+      }`}
     >
       {children}
     </a>

@@ -144,8 +144,8 @@ function Nav() {
 /* ---------- Hero ---------- */
 function Hero() {
   return (
-    <section id="product" className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 tech-grid tech-grid-fade" />
+    <section id="product" className="section-grid relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 tech-grid tech-grid-fade opacity-60" />
       <div className="pointer-events-none absolute inset-0">
         <span className="bracket-label absolute left-[6%] top-[18%]">[ GCP.USAGE ]</span>
         <span className="bracket-label absolute right-[8%] top-[14%]">[ ALWAYS FREE ]</span>

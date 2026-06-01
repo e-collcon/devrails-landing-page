@@ -1206,12 +1206,29 @@ function FooterCol({
   );
 }
 
-function SocialIcon({ label, children }: { label: string; children: React.ReactNode }) {
+function SocialIcon({
+  label,
+  href,
+  children,
+}: {
+  label: string;
+  href?: string;
+  children: React.ReactNode;
+}) {
+  const isPlaceholder = !href;
   return (
     <a
-      href="#"
-      aria-label={label}
-      className="grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-ink transition-colors hover:border-flame hover:text-flame"
+      href={href ?? "#"}
+      aria-label={isPlaceholder ? `${label} — coming soon` : label}
+      title={isPlaceholder ? `${label} — soon` : label}
+      aria-disabled={isPlaceholder || undefined}
+      onClick={isPlaceholder ? (e) => e.preventDefault() : undefined}
+      tabIndex={isPlaceholder ? -1 : undefined}
+      className={`grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-ink transition-colors ${
+        isPlaceholder
+          ? "cursor-not-allowed opacity-60"
+          : "hover:border-flame hover:text-flame"
+      }`}
     >
       {children}
     </a>

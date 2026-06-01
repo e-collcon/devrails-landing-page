@@ -388,7 +388,7 @@ function TrustCredibility() {
     },
   ];
   return (
-    <section className={`${SECTION_PAD} border-y border-border bg-surface`}>
+    <section className={`${SECTION_PAD} section-grid border-y border-border bg-surface`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// BUILT FOR BUILDERS"
@@ -456,7 +456,7 @@ function Problem() {
     },
   ];
   return (
-    <section className={SECTION_PAD}>
+    <section className={`${SECTION_PAD} section-grid`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// THE PROBLEM"
@@ -528,7 +528,7 @@ function HowItWorks() {
     },
   ];
   return (
-    <section id="how-it-works" className={`${SECTION_PAD} border-y border-border bg-surface`}>
+    <section id="how-it-works" className={`${SECTION_PAD} section-grid border-y border-border bg-surface`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// HOW IT WORKS"
@@ -606,7 +606,7 @@ function Features() {
   ];
 
   return (
-    <section id="features" className={SECTION_PAD}>
+    <section id="features" className={`${SECTION_PAD} section-grid`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// FEATURES"
@@ -710,7 +710,7 @@ function UseCases() {
     { icon: <Cloud className="h-4 w-4" />, title: "GCP experimenters", body: "Try Cloud Run, Functions, BigQuery, Pub/Sub, and Storage with clearer guardrails." },
   ];
   return (
-    <section className={`${SECTION_PAD} border-y border-border bg-surface`}>
+    <section className={`${SECTION_PAD} section-grid border-y border-border bg-surface`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// USE CASES"
@@ -746,7 +746,7 @@ function Pricing() {
     "Access to early GCP coverage expansions",
   ];
   return (
-    <section id="pricing" className={SECTION_PAD}>
+    <section id="pricing" className={`${SECTION_PAD} section-grid`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// PRICING"
@@ -814,7 +814,7 @@ function Pricing() {
 /* ---------- 09 Coll-Con context ---------- */
 function CollCon() {
   return (
-    <section className={`${SECTION_PAD} border-y border-border bg-surface`}>
+    <section className={`${SECTION_PAD} section-grid border-y border-border bg-surface`}>
       <div className={SECTION_WRAP}>
         <div className="mx-auto max-w-[820px] text-center">
           <div className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-muted">
@@ -859,7 +859,7 @@ const FAQS: { q: string; a: string }[] = [
 function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className={SECTION_PAD}>
+    <section id="faq" className={`${SECTION_PAD} section-grid`}>
       <div className={SECTION_WRAP}>
         <SectionHeader
           eyebrow="// FAQ"
@@ -956,7 +956,7 @@ function FinalCTA() {
   };
 
   return (
-    <section id="waitlist" className="relative overflow-hidden border-y border-border bg-surface">
+    <section id="waitlist" className="section-grid relative overflow-hidden border-y border-border bg-surface">
       <div className="pointer-events-none absolute inset-0 tech-grid tech-grid-fade opacity-60" />
       <div className={`${SECTION_WRAP} relative z-10 py-24 md:py-32`}>
         <div className="mx-auto max-w-[640px] text-center">

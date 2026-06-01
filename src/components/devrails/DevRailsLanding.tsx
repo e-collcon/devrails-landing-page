@@ -65,7 +65,11 @@ const ANNOUNCEMENT = {
   ctaHref: "#waitlist",
 };
 
-// Set to a real GitHub URL when the repo is public. Empty = safe placeholder.
+// GitHub button config.
+// TODO: Point this to the public DevRails GitHub repository (or public
+// roadmap repository) once it is published. While empty, the button stays
+// visually present but is non-navigating — DevRails is NOT open source
+// unless/until this URL points to a public, ready repository.
 const GITHUB_REPO_URL = "";
 
 const NAV_LINKS: { label: string; href: string }[] = [

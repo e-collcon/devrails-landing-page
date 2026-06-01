@@ -65,7 +65,11 @@ const ANNOUNCEMENT = {
   ctaHref: "#waitlist",
 };
 
-// Set to a real GitHub URL when the repo is public. Empty = safe placeholder.
+// GitHub button config.
+// TODO: Point this to the public DevRails GitHub repository (or public
+// roadmap repository) once it is published. While empty, the button stays
+// visually present but is non-navigating — DevRails is NOT open source
+// unless/until this URL points to a public, ready repository.
 const GITHUB_REPO_URL = "";
 
 const NAV_LINKS: { label: string; href: string }[] = [
@@ -662,16 +666,27 @@ function Features() {
           <div className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Power className="h-4 w-4 text-flame" />
+                <Power className="h-4 w-4 text-danger" />
                 <span className="text-[15px] font-semibold text-ink">Hard killswitch</span>
+                <span className="ml-1 inline-flex items-center rounded-full bg-danger-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-danger-text border border-danger-border">
+                  Critical
+                </span>
               </div>
               <span className="bracket-label">[ BILLING.OFF ]</span>
             </div>
             <p className="mt-2 text-[13.5px] text-ink-soft">
-              Disable billing entirely. Requires explicit opt-in.
+              Disable billing entirely. Requires explicit opt-in. Hard protection is
+              disruptive and should only be enabled intentionally.
             </p>
-            <div className="mt-4 flex items-start gap-2 rounded-[12px] border border-flame/30 bg-flame/5 p-3 text-[12px] text-ink">
-              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-flame" />
+            <div className="mt-4 flex items-center justify-between rounded-[12px] border border-danger-border bg-danger-soft p-3 font-mono text-[12px] text-ink">
+              <span>billing.disable</span>
+              <span className="inline-flex items-center gap-2 text-danger-text">
+                <span className="h-2 w-2 rounded-full bg-danger" />
+                armed
+              </span>
+            </div>
+            <div className="mt-3 flex items-start gap-2 rounded-[12px] border-l-2 border-danger bg-danger-soft/60 p-3 text-[12px] text-danger-text">
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
               <span>
                 Disruptive action. Will detach the billing account from the project.
                 Confirmation required.
@@ -765,9 +780,20 @@ function Pricing() {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 rounded-[12px] border border-white/15 bg-white/5 p-3 text-[13px] text-white/80">
-              Need more? Add <span className="text-white">5 more environments</span> for{" "}
-              <span className="text-flame">+$1/month</span>.
+            <div className="mt-6 rounded-[14px] border border-glow/40 bg-white/[0.06] p-4 shadow-glow">
+              <div className="flex items-center justify-between">
+                <span className="text-[13px] font-semibold uppercase tracking-wide text-white">
+                  Need more?
+                </span>
+                <span className="font-mono text-[11px] text-glow">[ ADD-ON ]</span>
+              </div>
+              <p className="mt-2 text-[14px] leading-[1.55] text-white/85">
+                Add 5 more monitored GCP environments for{" "}
+                <span className="font-bold tracking-tight text-glow" style={{ textShadow: "0 0 12px rgba(103,232,249,0.35)" }}>
+                  +&nbsp;$1/month
+                </span>
+                .
+              </p>
             </div>
             <a
               href="#waitlist"
@@ -775,8 +801,8 @@ function Pricing() {
             >
               Get early access <ArrowRight className="h-4 w-4" />
             </a>
-            <p className="mt-3 text-center font-mono text-[11px] text-white/50">
-              // no free tier · no enterprise tax · just a tiny tool for avoiding not-so-tiny mistakes
+            <p className="mt-3 text-center font-mono text-[11px] text-white/60">
+              // no free tier · no pricing maze · just $1/month for practical GCP guardrails
             </p>
           </div>
         </div>
@@ -872,51 +898,220 @@ function FAQ() {
   );
 }
 
-/* ---------- 11 Final CTA ---------- */
+/* ---------- 11 Final CTA (Waitlist form) ----------
+   Native on-site form. Designed to be wired to Supabase later via a
+   createServerFn that inserts into a `waitlist` table.
+----------------------------------------------------*/
+const ROLE_OPTIONS = [
+  "Solo builder",
+  "Indie hacker",
+  "Student",
+  "Prototype team",
+  "Small startup",
+  "Other",
+];
+const CONCERN_OPTIONS = [
+  "Egress",
+  "Cloud Run or Functions loop",
+  "BigQuery query",
+  "Storage or logs",
+  "Forgotten resources",
+  "Other",
+];
+
 function FinalCTA() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [concern, setConcern] = useState("");
+  const [projects, setProjects] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg("");
+    if (!isValidEmail(email)) {
+      setStatus("error");
+      setErrorMsg("Please enter a valid email address.");
+      return;
+    }
+    if (!consent) {
+      setStatus("error");
+      setErrorMsg("Please agree to receive DevRails updates.");
+      return;
+    }
+    setStatus("submitting");
+    try {
+      // TODO: wire to Supabase via createServerFn — insert into `waitlist` table.
+      await new Promise((r) => setTimeout(r, 600));
+      setStatus("success");
+    } catch {
+      setStatus("error");
+      setErrorMsg("Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <section id="waitlist" className="relative overflow-hidden border-y border-border bg-surface">
       <div className="pointer-events-none absolute inset-0 tech-grid tech-grid-fade opacity-60" />
-      <div className="pointer-events-none absolute inset-0">
-        <span className="bracket-label absolute left-[8%] top-[24%]">[ USAGE WATCHED ]</span>
-        <span className="bracket-label absolute right-[10%] top-[18%]">[ ALERT READY ]</span>
-        <span className="bracket-label absolute left-[18%] bottom-[22%]">[ GUARDRAIL ACTIVE ]</span>
-        <span className="bracket-label absolute right-[14%] bottom-[28%]">[ $1/MONTH ]</span>
-        <span className="crosshair absolute left-[26%] top-[44%]" />
-        <span className="crosshair absolute right-[24%] bottom-[40%]" />
-      </div>
-      <div className={`${SECTION_WRAP} relative z-10 py-24 text-center md:py-32`}>
-        <h2 className="mx-auto mt-2 max-w-[760px] text-[40px] font-bold leading-[1.1] tracking-[-0.02em] text-ink md:text-[56px]">
-          Build on GCP without{" "}
-          <span className="text-flame">bill anxiety.</span>
-        </h2>
-        <p className="mx-auto mt-5 max-w-[600px] text-[17px] text-ink-soft">
-          DevRails helps you watch usage, catch runaway patterns, and keep experiments on
-          rails — for $1/month.
-        </p>
+      <div className={`${SECTION_WRAP} relative z-10 py-24 md:py-32`}>
+        <div className="mx-auto max-w-[640px] text-center">
+          <div className="font-mono text-[12px] uppercase tracking-[0.08em] text-ink-muted">
+            // EARLY ACCESS
+          </div>
+          <h2 className="mx-auto mt-4 max-w-[640px] text-[40px] font-bold leading-[1.1] tracking-[-0.02em] text-ink md:text-[52px]">
+            Build on GCP without{" "}
+            <span className="text-flame">bill anxiety.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-[560px] text-[17px] text-ink-soft">
+            Join the DevRails waitlist. We&apos;ll send updates as early access opens.
+          </p>
+        </div>
 
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="mx-auto mt-8 flex w-full max-w-[480px] items-center gap-2 rounded-[14px] border border-border bg-white p-2 shadow-soft"
-        >
-          <input
-            type="email"
-            required
-            placeholder="you@yourstartup.dev"
-            className="h-11 flex-1 bg-transparent px-3 text-[15px] text-ink placeholder:text-ink-muted focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-flame px-4 text-[14px] font-semibold text-white hover:bg-flame-hover shadow-flame"
-          >
-            Get early access <ArrowRight className="h-4 w-4" />
-          </button>
-        </form>
-        <p className="mt-4 font-mono text-[12px] text-ink-muted">
-          // founding builder access opens soon
-        </p>
+        <div className="mx-auto mt-10 max-w-[560px]">
+          {status === "success" ? (
+            <div
+              role="status"
+              aria-live="polite"
+              className="rounded-[18px] border border-border bg-white p-8 text-center shadow-soft"
+            >
+              <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-flame/10">
+                <Check className="h-6 w-6 text-flame" />
+              </div>
+              <h3 className="mt-4 text-[20px] font-semibold tracking-tight text-ink">
+                You&apos;re on the list.
+              </h3>
+              <p className="mt-2 text-[15px] text-ink-soft">
+                We&apos;ll send DevRails updates as early access opens.
+              </p>
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              className="space-y-4 rounded-[18px] border border-border bg-white p-6 shadow-soft md:p-8"
+            >
+              <FormRow label="Email address" htmlFor="wl-email" required>
+                <input
+                  id="wl-email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@yourstartup.dev"
+                  className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                />
+              </FormRow>
+              <FormRow label="Name" htmlFor="wl-name">
+                <input
+                  id="wl-name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Optional"
+                  className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                />
+              </FormRow>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <FormRow label="Role" htmlFor="wl-role">
+                  <select
+                    id="wl-role"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                  >
+                    <option value="">Select role (optional)</option>
+                    {ROLE_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
+                  </select>
+                </FormRow>
+                <FormRow label="Main GCP concern" htmlFor="wl-concern">
+                  <select
+                    id="wl-concern"
+                    value={concern}
+                    onChange={(e) => setConcern(e.target.value)}
+                    className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                  >
+                    <option value="">Select concern (optional)</option>
+                    {CONCERN_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
+                  </select>
+                </FormRow>
+              </div>
+              <FormRow label="Number of GCP projects or environments" htmlFor="wl-projects">
+                <input
+                  id="wl-projects"
+                  type="number"
+                  min={0}
+                  value={projects}
+                  onChange={(e) => setProjects(e.target.value)}
+                  placeholder="Optional"
+                  className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
+                />
+              </FormRow>
+
+              <label className="flex items-start gap-2.5 text-[13.5px] text-ink-soft">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 cursor-pointer rounded border-border text-flame focus:ring-flame/30"
+                />
+                <span>I agree to receive updates about DevRails early access.</span>
+              </label>
+
+              {status === "error" && errorMsg && (
+                <div
+                  role="alert"
+                  className="flex items-start gap-2 rounded-[10px] border border-danger-border bg-danger-soft p-3 text-[13px] text-danger-text"
+                >
+                  <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
+                  <span>{errorMsg}</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-[10px] bg-flame px-4 text-[14px] font-semibold text-white transition-colors hover:bg-flame-hover shadow-flame disabled:opacity-60"
+              >
+                {status === "submitting" ? "Submitting…" : (
+                  <>Get early access <ArrowRight className="h-4 w-4" /></>
+                )}
+              </button>
+
+              <p className="text-center font-mono text-[11px] text-ink-muted">
+                // No spam. DevRails is currently in active development.
+              </p>
+            </form>
+          )}
+        </div>
       </div>
     </section>
+  );
+}
+
+function FormRow({
+  label,
+  htmlFor,
+  required,
+  children,
+}: {
+  label: string;
+  htmlFor: string;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label htmlFor={htmlFor} className="mb-1.5 block text-[13px] font-medium text-ink">
+        {label}
+        {required && <span className="ml-1 text-flame">*</span>}
+      </label>
+      {children}
+    </div>
   );
 }
 
@@ -941,8 +1136,8 @@ function Footer() {
     { label: "Status soon" },
   ];
   const legal: FooterLink[] = [
-    { label: "Privacy Policy soon" },
-    { label: "Terms soon" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
   ];
 
   return (

@@ -780,9 +780,20 @@ function Pricing() {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 rounded-[12px] border border-white/15 bg-white/5 p-3 text-[13px] text-white/80">
-              Need more? Add <span className="text-white">5 more environments</span> for{" "}
-              <span className="text-flame">+$1/month</span>.
+            <div className="mt-6 rounded-[14px] border border-glow/40 bg-white/[0.06] p-4 shadow-glow">
+              <div className="flex items-center justify-between">
+                <span className="text-[13px] font-semibold uppercase tracking-wide text-white">
+                  Need more?
+                </span>
+                <span className="font-mono text-[11px] text-glow">[ ADD-ON ]</span>
+              </div>
+              <p className="mt-2 text-[14px] leading-[1.55] text-white/85">
+                Add 5 more monitored GCP environments for{" "}
+                <span className="font-bold tracking-tight text-glow" style={{ textShadow: "0 0 12px rgba(103,232,249,0.35)" }}>
+                  +&nbsp;$1/month
+                </span>
+                .
+              </p>
             </div>
             <a
               href="#waitlist"
@@ -790,8 +801,8 @@ function Pricing() {
             >
               Get early access <ArrowRight className="h-4 w-4" />
             </a>
-            <p className="mt-3 text-center font-mono text-[11px] text-white/50">
-              // no free tier · no enterprise tax · just a tiny tool for avoiding not-so-tiny mistakes
+            <p className="mt-3 text-center font-mono text-[11px] text-white/60">
+              // no free tier · no pricing maze · just $1/month for practical GCP guardrails
             </p>
           </div>
         </div>

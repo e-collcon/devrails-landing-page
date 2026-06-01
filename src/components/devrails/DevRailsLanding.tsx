@@ -3,7 +3,6 @@ import {
   ArrowRight,
   Hexagon,
   Github,
-  ChevronDown,
   Check,
   Bell,
   Gauge,
@@ -45,17 +44,33 @@ function WordMark({ size = "md" }: { size?: "sm" | "md" }) {
 }
 
 /* ---------- Announcement Bar ---------- */
+const ANNOUNCEMENT = {
+  enabled: true,
+  message: "DevRails is currently in active development.",
+  ctaText: "Join the early access waitlist",
+  ctaHref: "#waitlist",
+};
+
+// Set to a real GitHub URL when the repo is public. Empty = safe placeholder.
+const GITHUB_REPO_URL = "";
+
+const NAV_LINKS: { label: string; href: string }[] = [
+  { label: "Product", href: "#product" },
+  { label: "Features", href: "#how-it-works" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
+];
+
 function AnnouncementBar() {
+  if (!ANNOUNCEMENT.enabled) return null;
   return (
     <div className="pt-3">
       <div className={SECTION_WRAP}>
         <div className="flex h-10 items-center justify-center gap-2 rounded-[12px] bg-flame px-4 text-[13px] font-medium text-white">
           <span className="hidden h-1.5 w-1.5 animate-pulse-dot rounded-full bg-white/90 sm:block" />
-          <span className="truncate">
-            DevRails is launching soon. Lock in <strong>$1/month</strong> for life as a founding builder.
-          </span>
-          <a href="#waitlist" className="font-semibold underline underline-offset-2">
-            Join the waitlist →
+          <span className="truncate">{ANNOUNCEMENT.message}</span>
+          <a href={ANNOUNCEMENT.ctaHref} className="font-semibold underline underline-offset-2">
+            {ANNOUNCEMENT.ctaText} →
           </a>
         </div>
       </div>
@@ -65,33 +80,30 @@ function AnnouncementBar() {
 
 /* ---------- Nav ---------- */
 function Nav() {
-  const links = ["Product", "How it works", "Pricing", "FAQ", "Coll-Con"];
+  const githubHref = GITHUB_REPO_URL || "#";
   return (
-    <header className="relative z-20">
-      <div className={`${SECTION_WRAP} flex h-[80px] items-center justify-between`}>
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/75 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+      <div className={`${SECTION_WRAP} flex h-[72px] items-center justify-between`}>
         <a href="/" aria-label="DevRails home" className="flex items-center">
           <WordMark />
         </a>
         <nav className="hidden items-center gap-7 md:flex">
-          {links.map((l) => (
+          {NAV_LINKS.map((l) => (
             <a
-              key={l}
-              href={`#${l.toLowerCase().replace(/\s/g, "-")}`}
+              key={l.label}
+              href={l.href}
               className="text-[14px] font-medium text-ink transition-colors hover:text-flame"
             >
-              {l}
+              {l.label}
             </a>
           ))}
-          <a
-            href="#docs"
-            className="flex items-center gap-1 text-[14px] font-medium text-ink transition-colors hover:text-flame"
-          >
-            Docs <ChevronDown className="h-3.5 w-3.5" />
-          </a>
         </nav>
         <div className="flex items-center gap-2">
           <a
-            href="https://github.com"
+            href={githubHref}
+            {...(GITHUB_REPO_URL
+              ? { target: "_blank", rel: "noreferrer noopener" }
+              : { "aria-disabled": true, onClick: (e: React.MouseEvent) => e.preventDefault() })}
             className="hidden items-center gap-2 rounded-[10px] border border-border bg-white px-3 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-secondary sm:flex"
           >
             <Github className="h-4 w-4" />

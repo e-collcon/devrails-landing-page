@@ -666,16 +666,27 @@ function Features() {
           <div className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Power className="h-4 w-4 text-flame" />
+                <Power className="h-4 w-4 text-danger" />
                 <span className="text-[15px] font-semibold text-ink">Hard killswitch</span>
+                <span className="ml-1 inline-flex items-center rounded-full bg-danger-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-danger-text border border-danger-border">
+                  Critical
+                </span>
               </div>
               <span className="bracket-label">[ BILLING.OFF ]</span>
             </div>
             <p className="mt-2 text-[13.5px] text-ink-soft">
-              Disable billing entirely. Requires explicit opt-in.
+              Disable billing entirely. Requires explicit opt-in. Hard protection is
+              disruptive and should only be enabled intentionally.
             </p>
-            <div className="mt-4 flex items-start gap-2 rounded-[12px] border border-flame/30 bg-flame/5 p-3 text-[12px] text-ink">
-              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-flame" />
+            <div className="mt-4 flex items-center justify-between rounded-[12px] border border-danger-border bg-danger-soft p-3 font-mono text-[12px] text-ink">
+              <span>billing.disable</span>
+              <span className="inline-flex items-center gap-2 text-danger-text">
+                <span className="h-2 w-2 rounded-full bg-danger" />
+                armed
+              </span>
+            </div>
+            <div className="mt-3 flex items-start gap-2 rounded-[12px] border-l-2 border-danger bg-danger-soft/60 p-3 text-[12px] text-danger-text">
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
               <span>
                 Disruptive action. Will detach the billing account from the project.
                 Confirmation required.

@@ -1136,8 +1136,8 @@ function Footer() {
     { label: "Status soon" },
   ];
   const legal: FooterLink[] = [
-    { label: "Privacy Policy soon" },
-    { label: "Terms soon" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
   ];
 
   return (

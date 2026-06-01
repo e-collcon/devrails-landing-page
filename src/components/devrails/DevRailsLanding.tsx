@@ -1022,7 +1022,7 @@ function FinalCTA() {
                     id="wl-role"
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
-                    className={`h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20 ${role ? "text-ink" : "text-ink-muted"}`}
+                    className={`select-field h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20 ${role ? "text-ink" : "text-ink-muted"}`}
                   >
                     <option value="" disabled>Select role</option>
                     {ROLE_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}
@@ -1033,7 +1033,7 @@ function FinalCTA() {
                     id="wl-concern"
                     value={concern}
                     onChange={(e) => setConcern(e.target.value)}
-                    className={`h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20 ${concern ? "text-ink" : "text-ink-muted"}`}
+                    className={`select-field h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20 ${concern ? "text-ink" : "text-ink-muted"}`}
                   >
                     <option value="" disabled>Select concern</option>
                     {CONCERN_OPTIONS.map((r) => <option key={r} value={r}>{r}</option>)}

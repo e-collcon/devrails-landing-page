@@ -3,7 +3,6 @@ import {
   ArrowRight,
   Hexagon,
   Github,
-  ChevronDown,
   Check,
   Bell,
   Gauge,

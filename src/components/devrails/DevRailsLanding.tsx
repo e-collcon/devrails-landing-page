@@ -191,7 +191,7 @@ function Hero() {
           </a>
           <a
             href="#how-it-works"
-            className="inline-flex items-center gap-2 rounded-[10px] border border-border bg-white px-5 py-3 text-[14px] font-semibold text-ink hover:bg-secondary"
+            className="inline-flex items-center gap-2 rounded-[10px] border border-border bg-white px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:border-secondary-accent hover:text-secondary-accent hover:bg-secondary-accent/5"
           >
             See how it works
           </a>
@@ -541,11 +541,11 @@ function HowItWorks() {
         <div className="mx-auto mt-12 flex max-w-[900px] flex-wrap items-center justify-center gap-3 font-mono text-[11px] text-ink-muted">
           <span className="rounded-full bg-white border border-border px-2.5 py-1">normal</span>
           <ArrowRight className="h-3 w-3" />
-          <span className="rounded-full bg-white border border-border px-2.5 py-1">lower threshold</span>
+          <span className="rounded-full bg-white border border-warning/40 px-2.5 py-1 text-warning">lower threshold</span>
           <ArrowRight className="h-3 w-3" />
-          <span className="rounded-full bg-white border border-border px-2.5 py-1 text-ink">alert</span>
+          <span className="rounded-full bg-white border border-warning/40 px-2.5 py-1 text-warning">alert</span>
           <ArrowRight className="h-3 w-3" />
-          <span className="rounded-full bg-white border border-border px-2.5 py-1">higher threshold</span>
+          <span className="rounded-full bg-white border border-danger/40 px-2.5 py-1 text-danger-text">higher threshold</span>
           <ArrowRight className="h-3 w-3" />
           <span className="rounded-full bg-flame px-2.5 py-1 text-white">guardrail action</span>
         </div>

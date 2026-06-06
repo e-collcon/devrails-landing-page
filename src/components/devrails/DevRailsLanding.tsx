@@ -465,13 +465,14 @@ function Problem() {
           eyebrow="// THE PROBLEM"
           title="Cloud bills do not explode all at once."
           accent="Usage does."
+          accentClass="text-glow"
           subtitle="Most surprise GCP bills start as small usage mistakes: a recursive function, a noisy log setting, an oversized query, or outbound traffic nobody noticed."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (
             <div key={c.title} className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
               <div className="flex items-center justify-between">
-                <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-secondary text-ink">
+                <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-glow/15 text-glow">
                   {c.icon}
                 </span>
                 <span className="bracket-label">[ {c.tag} ]</span>
@@ -481,7 +482,7 @@ function Problem() {
               <div className="mt-4 flex items-center gap-2 font-mono text-[11px] text-ink-muted">
                 <span>root cause</span>
                 <ArrowRight className="h-3 w-3" />
-                <span className="text-flame">bill risk</span>
+                <span className="text-glow">bill risk</span>
               </div>
             </div>
           ))}

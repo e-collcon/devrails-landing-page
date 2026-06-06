@@ -338,12 +338,14 @@ function SectionHeader({
   title,
   accent,
   subtitle,
+  accentClass,
 }: {
   index?: string;
   eyebrow: string;
   title: string;
   accent?: string;
   subtitle?: string;
+  accentClass?: string;
 }) {
   return (
     <div className="mx-auto max-w-[820px] text-center">
@@ -352,7 +354,7 @@ function SectionHeader({
       </div>
       <h2 className="mt-5 text-[36px] font-bold leading-[1.1] tracking-[-0.02em] text-ink md:text-[52px]">
         {title}{" "}
-        {accent && <span className="text-flame">{accent}</span>}
+        {accent && <span className={accentClass ?? "text-flame"}>{accent}</span>}
       </h2>
       {subtitle && (
         <p className="mx-auto mt-5 max-w-[680px] text-[17px] leading-[1.55] text-ink-soft md:text-[18px]">

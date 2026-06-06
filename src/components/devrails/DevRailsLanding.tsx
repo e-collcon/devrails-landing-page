@@ -754,13 +754,12 @@ function UseCases() {
           eyebrow="// USE CASES"
           title="Guardrails for the ways"
           accent="GCP actually gets expensive."
-          accentClass="text-secondary-accent"
           subtitle="DevRails focuses on the usage patterns that hurt builders most: runaway loops, egress, bloat, oversized queries, and forgotten resources."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cases.map((c) => (
             <div key={c.title} className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
-              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-secondary-accent/10 text-secondary-accent">
+              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-flame/10 text-flame">
                 {c.icon}
               </span>
               <h3 className="mt-4 text-[16px] font-semibold tracking-tight text-ink">{c.title}</h3>
@@ -904,7 +903,6 @@ function FAQ() {
           eyebrow="// FAQ"
           title="Questions,"
           accent="answered."
-          accentClass="text-glow"
           subtitle="Everything you need to know before you trust DevRails with your GCP usage."
         />
         <div className="mx-auto mt-12 max-w-[800px] divide-y divide-border border-y border-border">

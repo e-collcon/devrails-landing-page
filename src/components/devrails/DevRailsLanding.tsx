@@ -191,7 +191,7 @@ function Hero() {
           </a>
           <a
             href="#how-it-works"
-            className="inline-flex items-center gap-2 rounded-[10px] border border-border bg-white px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:border-secondary-accent hover:text-secondary-accent hover:bg-secondary-accent/5"
+            className="inline-flex items-center gap-2 rounded-[10px] border border-border bg-white px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:border-flame hover:text-flame hover:bg-flame/5"
           >
             See how it works
           </a>
@@ -217,8 +217,8 @@ function HeroDashboard() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
         <div className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-secondary-accent/10">
-            <Gauge className="h-4 w-4 text-secondary-accent" />
+          <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-flame/10">
+            <Gauge className="h-4 w-4 text-flame" />
           </span>
           <span className="text-[14px] font-semibold text-ink">prod-builder-01</span>
           <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-medium text-ink">
@@ -259,7 +259,7 @@ function HeroDashboard() {
                 <div className="font-mono text-[11px] text-ink-muted">of 2.00M always-free</div>
               </div>
               <div className="text-right">
-                <div className="font-mono text-[11px] text-glow">71% used</div>
+                <div className="font-mono text-[11px] text-warning">71% used</div>
                 <div className="font-mono text-[11px] text-ink-muted">+18% vs last week</div>
               </div>
             </div>
@@ -267,8 +267,8 @@ function HeroDashboard() {
               {/* lower threshold marker at 60% */}
               <div className="absolute top-0 bottom-0 left-[60%] w-px bg-ink-muted/60" />
               {/* higher threshold marker at 90% */}
-              <div className="absolute top-0 bottom-0 left-[90%] w-px bg-glow" />
-              <div className="h-full w-[71%] rounded-full bg-glow" />
+              <div className="absolute top-0 bottom-0 left-[90%] w-px bg-danger" />
+              <div className="h-full w-[71%] rounded-full bg-warning" />
             </div>
             <div className="mt-2 flex justify-between font-mono text-[10px] text-ink-muted">
               <span>0</span>
@@ -282,7 +282,7 @@ function HeroDashboard() {
             {[18, 22, 30, 26, 38, 52, 71].map((h, i) => (
               <div key={i} className="flex-1">
                 <div
-                  className={`w-full rounded-t-sm ${h >= 60 ? "bg-glow" : "bg-ink/30"}`}
+                  className={`w-full rounded-t-sm ${h >= 60 ? "bg-warning" : "bg-flame/30"}`}
                   style={{ height: `${h}px` }}
                 />
                 <div className="mt-1 text-center font-mono text-[9px] text-ink-muted">
@@ -297,14 +297,14 @@ function HeroDashboard() {
         <div className="min-w-0 overflow-hidden rounded-[14px] border border-border bg-white p-4 md:col-span-2">
           <div className="flex items-center justify-between">
             <span className="bracket-label">[ RULES · IF X → DO Y ]</span>
-            <span className="font-mono text-[11px] text-glow">2 active</span>
+            <span className="font-mono text-[11px] text-glow">2 armed</span>
           </div>
           <ul className="mt-3 space-y-2.5 font-mono text-[12px] text-ink-soft">
             <li className="min-w-0 overflow-hidden rounded-[10px] border border-border bg-surface p-3">
               <div className="text-ink-muted">if</div>
               <div className="truncate text-ink">cloud_run.requests &gt; lower</div>
               <div className="mt-1 text-ink-muted">→ then</div>
-              <div className="truncate text-glow">alert(email, slack)</div>
+              <div className="truncate text-warning">alert(email, slack)</div>
             </li>
             <li className="min-w-0 overflow-hidden rounded-[10px] border border-border bg-surface p-3">
               <div className="text-ink-muted">if</div>

@@ -605,16 +605,23 @@ function Features() {
   ];
 
   const caps = [
-    { icon: <Activity className="h-4 w-4" />, title: "Near real-time usage monitoring", body: "Put a meter on GCP usage signals that can turn into billable spend." },
-    { icon: <Bell className="h-4 w-4" />, title: "Lower-threshold alerts", body: "Get notified when usage starts moving beyond the safe range." },
-    { icon: <Zap className="h-4 w-4" />, title: "Higher-threshold actions", body: "Choose what happens next: alert, soft killswitch, or hard killswitch." },
-    { icon: <ShieldCheck className="h-4 w-4" />, title: "Soft killswitch", body: "Set selected API quotas to zero to stop runaway usage without immediately disabling the whole billing setup." },
-    { icon: <Power className="h-4 w-4" />, title: "Hard killswitch", body: "Disable billing only when explicitly enabled, with a clear warning before activation." },
-    { icon: <LineChart className="h-4 w-4" />, title: "7-day dashboard", body: "See recent usage trends without turning DevRails into another long-term data warehouse." },
-    { icon: <Layers className="h-4 w-4" />, title: "Multiple environments", body: "Monitor up to 5 GCP environments/projects on the base plan, with simple expansion pricing." },
-    { icon: <FileText className="h-4 w-4" />, title: "Situation reports", body: "Receive periodic summaries so you can understand usage patterns while keeping data retention lightweight." },
-    { icon: <Cloud className="h-4 w-4" />, title: "GCP coverage roadmap", body: "Start with usage metrics, then expand into deeper GCP intelligence where it creates clear value." },
+    { icon: <Activity className="h-4 w-4" />, title: "Near real-time usage monitoring", body: "Put a meter on GCP usage signals that can turn into billable spend.", tone: "flame" as const },
+    { icon: <Bell className="h-4 w-4" />, title: "Lower-threshold alerts", body: "Get notified when usage starts moving beyond the safe range.", tone: "warning" as const },
+    { icon: <Zap className="h-4 w-4" />, title: "Higher-threshold actions", body: "Choose what happens next: alert, soft killswitch, or hard killswitch.", tone: "purple" as const },
+    { icon: <ShieldCheck className="h-4 w-4" />, title: "Soft killswitch", body: "Set selected API quotas to zero to stop runaway usage without immediately disabling the whole billing setup.", tone: "tosca" as const },
+    { icon: <Power className="h-4 w-4" />, title: "Hard killswitch", body: "Disable billing only when explicitly enabled, with a clear warning before activation.", tone: "danger" as const },
+    { icon: <LineChart className="h-4 w-4" />, title: "7-day dashboard", body: "See recent usage trends without turning DevRails into another long-term data warehouse.", tone: "flame" as const },
+    { icon: <Layers className="h-4 w-4" />, title: "Multiple environments", body: "Monitor up to 5 GCP environments/projects on the base plan, with simple expansion pricing.", tone: "flame" as const },
+    { icon: <FileText className="h-4 w-4" />, title: "Situation reports", body: "Receive periodic summaries so you can understand usage patterns while keeping data retention lightweight.", tone: "purple" as const },
+    { icon: <Cloud className="h-4 w-4" />, title: "GCP coverage roadmap", body: "Start with usage metrics, then expand into deeper GCP intelligence where it creates clear value.", tone: "flame" as const },
   ];
+  const capTone: Record<"flame" | "purple" | "warning" | "tosca" | "danger", string> = {
+    flame: "bg-flame/10 text-flame",
+    purple: "bg-secondary-accent/10 text-secondary-accent",
+    warning: "bg-warning/10 text-warning",
+    tosca: "bg-glow/15 text-glow",
+    danger: "bg-danger-soft text-danger",
+  };
 
   return (
     <section id="features" className={`${SECTION_PAD} section-grid`}>
@@ -643,7 +650,7 @@ function Features() {
         <div className="mx-auto mt-8 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {caps.map((c) => (
             <div key={c.title} className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
-              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-flame/10 text-flame">
+              <span className={`grid h-9 w-9 place-items-center rounded-[10px] ${capTone[c.tone]}`}>
                 {c.icon}
               </span>
               <h3 className="mt-4 text-[16px] font-semibold tracking-tight text-ink">{c.title}</h3>

@@ -73,25 +73,33 @@
   --radius: 0.75rem;
   /* Surfaces */
   --background: #ffffff;
-  --surface: #f8fafc;                          /* Soft White */
-  --surface-2: #f1f5f9;                        /* Slate 100 */
-  --grid: #e2e8f0;                             /* Slate 200 */
+  --surface: #F5F7FA;                          /* Surface */
+  --surface-2: #EEF1F6;                        /* Surface stronger */
+  --grid: #E5E7EB;                             /* Border */
   /* Text */
-  --foreground: #0f172a;                       /* Deep Navy */
-  --ink: #0f172a;
-  --ink-soft: #334155;                         /* Slate */
-  --ink-muted: #64748b;                        /* Slate 500 */
-  /* Brand — Electric Blue accent (token name kept for compatibility) */
-  --flame: #2563ff;                            /* Electric Blue */
-  --flame-hover: #1d4ed8;                      /* Electric Blue hover */
-  --glow: #67e8f9;                             /* Cyan Glow accent */
-  /* Danger (alert red / hard killswitch) */
-  --danger: #dc2626;
-  --danger-hover: #b91c1c;
-  --danger-soft: #fef2f2;
-  --danger-border: #fecaca;
-  --danger-text: #991b1b;
-  --danger-dark-accent: #f87171;
+  --foreground: #08121F;                       /* Deep Navy */
+  --ink: #08121F;
+  --ink-soft: #334155;                         /* Light Slate */
+  --ink-muted: #64748B;                        /* Muted slate */
+  /* Brand — Deep Azure (primary). Token name kept for compatibility. */
+  --flame: #0B3D91;                            /* Deep Azure */
+  --flame-hover: #082E6E;                      /* Deep Azure hover */
+  --glow: #35C6A7;                             /* Tosca highlight */
+  /* Secondary — Electric Purple (interaction / AI) */
+  --secondary-accent: #6D5DF6;
+  --secondary-accent-hover: #5546E0;
+  --ai-accent: #8B5CF6;
+  /* Semantic */
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --info: #0EA5E9;
+  /* Danger (alert red / hard killswitch) — Error semantic */
+  --danger: #EF4444;
+  --danger-hover: #DC2626;
+  --danger-soft: #FEF2F2;
+  --danger-border: #FECACA;
+  --danger-text: #991B1B;
+  --danger-dark-accent: #F87171;
   --danger-dark-bg: rgba(248, 113, 113, 0.12);
   --danger-dark-border: rgba(248, 113, 113, 0.35);
   /* Shadcn */
@@ -101,22 +109,22 @@
   --popover-foreground: var(--ink);
   --primary: var(--flame);
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
+  --secondary: #EEF1F6;
   --secondary-foreground: var(--ink);
-  --muted: #f8fafc;
+  --muted: #F5F7FA;
   --muted-foreground: var(--ink-soft);
-  --accent: #e0f2fe;
+  --accent: #EAE7FE;
   --accent-foreground: var(--ink);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: #e2e8f0;
-  --input: #e2e8f0;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
   --ring: var(--flame);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --chart-1: #0B3D91;
+  --chart-2: #35C6A7;
+  --chart-3: #6D5DF6;
+  --chart-4: #F59E0B;
+  --chart-5: #0EA5E9;
   --sidebar: var(--surface);
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--flame);

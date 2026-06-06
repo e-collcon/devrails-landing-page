@@ -396,6 +396,7 @@ function TrustCredibility() {
           eyebrow="// BUILT FOR BUILDERS"
           title="Built for builders who"
           accent="ship on GCP."
+          accentClass="text-secondary-accent"
           subtitle="DevRails starts small on purpose: usage monitoring, practical alerts, simple guardrails, and pricing that does not punish side projects."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -404,7 +405,7 @@ function TrustCredibility() {
               key={c.title}
               className="glass rounded-[18px] p-6 shadow-soft transition-colors hover:border-ink/15"
             >
-              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-flame/10 text-flame">
+              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-secondary-accent/10 text-secondary-accent">
                 {c.icon}
               </span>
               <h3 className="mt-5 text-[16px] font-semibold tracking-tight text-ink">{c.title}</h3>

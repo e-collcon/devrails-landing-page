@@ -569,7 +569,7 @@ function HowItWorks() {
           {steps.map((s) => (
             <div
               key={s.n}
-              className="relative rounded-[18px] border border-border bg-white p-5 shadow-soft"
+              className="relative flex h-full flex-col rounded-[18px] border border-border bg-white p-5 shadow-soft"
             >
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[12px] text-ink-muted">{s.n}</span>
@@ -579,7 +579,7 @@ function HowItWorks() {
               </div>
               <h3 className="mt-4 text-[15px] font-semibold tracking-tight text-ink">{s.title}</h3>
               <p className="mt-2 text-[13.5px] leading-[1.55] text-ink-soft">{s.body}</p>
-              <div className="mt-4 bracket-label">{s.tag}</div>
+              <div className="mt-auto pt-4 bracket-label">{s.tag}</div>
             </div>
           ))}
         </div>

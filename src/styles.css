@@ -65,6 +65,12 @@
   --color-danger-soft: var(--danger-soft);
   --color-danger-border: var(--danger-border);
   --color-danger-text: var(--danger-text);
+  --color-secondary-accent: var(--secondary-accent);
+  --color-secondary-accent-hover: var(--secondary-accent-hover);
+  --color-ai-accent: var(--ai-accent);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, SFMono-Regular, monospace;
 }

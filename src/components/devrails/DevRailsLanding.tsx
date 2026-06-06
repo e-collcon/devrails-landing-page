@@ -191,7 +191,7 @@ function Hero() {
           </a>
           <a
             href="#how-it-works"
-            className="inline-flex items-center gap-2 rounded-[10px] border border-border bg-white px-5 py-3 text-[14px] font-semibold text-ink hover:bg-secondary"
+            className="inline-flex items-center gap-2 rounded-[10px] border border-border bg-white px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:border-secondary-accent hover:text-secondary-accent hover:bg-secondary-accent/5"
           >
             See how it works
           </a>
@@ -497,6 +497,7 @@ function HowItWorks() {
       title: "Connect your GCP project",
       body: "Add a GCP environment you own and let DevRails watch the billable usage signals that matter.",
       tag: "[ CONNECT ]",
+      tone: "flame" as const,
     },
     {
       n: "02",
@@ -504,6 +505,7 @@ function HowItWorks() {
       title: "Set your usage rails",
       body: "Choose lower and higher thresholds based on Always Free limits or your own safe operating range.",
       tag: "[ LOWER · HIGHER ]",
+      tone: "purple" as const,
     },
     {
       n: "03",
@@ -511,6 +513,7 @@ function HowItWorks() {
       title: "Get warned early",
       body: "When usage crosses the lower threshold, DevRails sends a configurable alert so you can act before panic mode.",
       tag: "[ ALERT ]",
+      tone: "warning" as const,
     },
     {
       n: "04",
@@ -518,6 +521,7 @@ function HowItWorks() {
       title: "Trigger guardrails",
       body: "When usage crosses the higher threshold, DevRails can alert again, set selected API quotas to zero, or disable billing if you explicitly enable hard protection.",
       tag: "[ QUOTA.ZERO ]",
+      tone: "flame" as const,
     },
     {
       n: "05",
@@ -525,8 +529,15 @@ function HowItWorks() {
       title: "Review the situation",
       body: "Use short-window dashboards and situation reports to understand what happened without storing unnecessary data forever.",
       tag: "[ 7 DAY WINDOW ]",
+      tone: "tosca" as const,
     },
   ];
+  const toneClass: Record<"flame" | "purple" | "warning" | "tosca", string> = {
+    flame: "bg-flame/10 text-flame",
+    purple: "bg-secondary-accent/10 text-secondary-accent",
+    warning: "bg-warning/10 text-warning",
+    tosca: "bg-glow/15 text-glow",
+  };
   return (
     <section id="how-it-works" className={`${SECTION_PAD} section-grid border-y border-border bg-surface`}>
       <div className={SECTION_WRAP}>
@@ -541,11 +552,11 @@ function HowItWorks() {
         <div className="mx-auto mt-12 flex max-w-[900px] flex-wrap items-center justify-center gap-3 font-mono text-[11px] text-ink-muted">
           <span className="rounded-full bg-white border border-border px-2.5 py-1">normal</span>
           <ArrowRight className="h-3 w-3" />
-          <span className="rounded-full bg-white border border-border px-2.5 py-1">lower threshold</span>
+          <span className="rounded-full bg-white border border-warning/40 px-2.5 py-1 text-warning">lower threshold</span>
           <ArrowRight className="h-3 w-3" />
-          <span className="rounded-full bg-white border border-border px-2.5 py-1 text-ink">alert</span>
+          <span className="rounded-full bg-white border border-warning/40 px-2.5 py-1 text-warning">alert</span>
           <ArrowRight className="h-3 w-3" />
-          <span className="rounded-full bg-white border border-border px-2.5 py-1">higher threshold</span>
+          <span className="rounded-full bg-white border border-danger/40 px-2.5 py-1 text-danger-text">higher threshold</span>
           <ArrowRight className="h-3 w-3" />
           <span className="rounded-full bg-flame px-2.5 py-1 text-white">guardrail action</span>
         </div>
@@ -558,7 +569,7 @@ function HowItWorks() {
             >
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[12px] text-ink-muted">{s.n}</span>
-                <span className="grid h-8 w-8 place-items-center rounded-[8px] bg-flame/10 text-flame">
+                <span className={`grid h-8 w-8 place-items-center rounded-[8px] ${toneClass[s.tone]}`}>
                   {s.icon}
                 </span>
               </div>
@@ -594,16 +605,23 @@ function Features() {
   ];
 
   const caps = [
-    { icon: <Activity className="h-4 w-4" />, title: "Near real-time usage monitoring", body: "Put a meter on GCP usage signals that can turn into billable spend." },
-    { icon: <Bell className="h-4 w-4" />, title: "Lower-threshold alerts", body: "Get notified when usage starts moving beyond the safe range." },
-    { icon: <Zap className="h-4 w-4" />, title: "Higher-threshold actions", body: "Choose what happens next: alert, soft killswitch, or hard killswitch." },
-    { icon: <ShieldCheck className="h-4 w-4" />, title: "Soft killswitch", body: "Set selected API quotas to zero to stop runaway usage without immediately disabling the whole billing setup." },
-    { icon: <Power className="h-4 w-4" />, title: "Hard killswitch", body: "Disable billing only when explicitly enabled, with a clear warning before activation." },
-    { icon: <LineChart className="h-4 w-4" />, title: "7-day dashboard", body: "See recent usage trends without turning DevRails into another long-term data warehouse." },
-    { icon: <Layers className="h-4 w-4" />, title: "Multiple environments", body: "Monitor up to 5 GCP environments/projects on the base plan, with simple expansion pricing." },
-    { icon: <FileText className="h-4 w-4" />, title: "Situation reports", body: "Receive periodic summaries so you can understand usage patterns while keeping data retention lightweight." },
-    { icon: <Cloud className="h-4 w-4" />, title: "GCP coverage roadmap", body: "Start with usage metrics, then expand into deeper GCP intelligence where it creates clear value." },
+    { icon: <Activity className="h-4 w-4" />, title: "Near real-time usage monitoring", body: "Put a meter on GCP usage signals that can turn into billable spend.", tone: "flame" as const },
+    { icon: <Bell className="h-4 w-4" />, title: "Lower-threshold alerts", body: "Get notified when usage starts moving beyond the safe range.", tone: "warning" as const },
+    { icon: <Zap className="h-4 w-4" />, title: "Higher-threshold actions", body: "Choose what happens next: alert, soft killswitch, or hard killswitch.", tone: "purple" as const },
+    { icon: <ShieldCheck className="h-4 w-4" />, title: "Soft killswitch", body: "Set selected API quotas to zero to stop runaway usage without immediately disabling the whole billing setup.", tone: "tosca" as const },
+    { icon: <Power className="h-4 w-4" />, title: "Hard killswitch", body: "Disable billing only when explicitly enabled, with a clear warning before activation.", tone: "danger" as const },
+    { icon: <LineChart className="h-4 w-4" />, title: "7-day dashboard", body: "See recent usage trends without turning DevRails into another long-term data warehouse.", tone: "flame" as const },
+    { icon: <Layers className="h-4 w-4" />, title: "Multiple environments", body: "Monitor up to 5 GCP environments/projects on the base plan, with simple expansion pricing.", tone: "flame" as const },
+    { icon: <FileText className="h-4 w-4" />, title: "Situation reports", body: "Receive periodic summaries so you can understand usage patterns while keeping data retention lightweight.", tone: "purple" as const },
+    { icon: <Cloud className="h-4 w-4" />, title: "GCP coverage roadmap", body: "Start with usage metrics, then expand into deeper GCP intelligence where it creates clear value.", tone: "flame" as const },
   ];
+  const capTone: Record<"flame" | "purple" | "warning" | "tosca" | "danger", string> = {
+    flame: "bg-flame/10 text-flame",
+    purple: "bg-secondary-accent/10 text-secondary-accent",
+    warning: "bg-warning/10 text-warning",
+    tosca: "bg-glow/15 text-glow",
+    danger: "bg-danger-soft text-danger",
+  };
 
   return (
     <section id="features" className={`${SECTION_PAD} section-grid`}>
@@ -632,7 +650,7 @@ function Features() {
         <div className="mx-auto mt-8 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {caps.map((c) => (
             <div key={c.title} className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
-              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-flame/10 text-flame">
+              <span className={`grid h-9 w-9 place-items-center rounded-[10px] ${capTone[c.tone]}`}>
                 {c.icon}
               </span>
               <h3 className="mt-4 text-[16px] font-semibold tracking-tight text-ink">{c.title}</h3>
@@ -646,10 +664,12 @@ function Features() {
           <div className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-flame" />
+                <ShieldCheck className="h-4 w-4 text-glow" />
                 <span className="text-[15px] font-semibold text-ink">Soft killswitch</span>
               </div>
-              <span className="bracket-label">[ QUOTA.ZERO ]</span>
+              <span className="inline-flex items-center rounded-full bg-glow/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-glow border border-glow/30">
+                Healthy
+              </span>
             </div>
             <p className="mt-2 text-[13.5px] text-ink-soft">
               Set selected API quotas to zero to stop runaway usage. Reversible.
@@ -657,7 +677,7 @@ function Features() {
             <div className="mt-4 flex items-center justify-between rounded-[12px] border border-border bg-surface p-3 font-mono text-[12px] text-ink">
               <span>run.googleapis.com</span>
               <span className="inline-flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-flame" />
+                <span className="h-2 w-2 rounded-full bg-glow" />
                 armed
               </span>
             </div>
@@ -774,7 +794,7 @@ function Pricing() {
             <ul className="mt-6 space-y-2.5 text-[14px] text-white/85">
               {included.map((f) => (
                 <li key={f} className="flex items-start gap-2">
-                  <Check className="mt-0.5 h-4 w-4 text-flame" />
+                  <Check className="mt-0.5 h-4 w-4 text-glow" />
                   <span>{f}</span>
                 </li>
               ))}
@@ -788,7 +808,7 @@ function Pricing() {
               </div>
               <p className="mt-2 text-[14px] leading-[1.55] text-white/85">
                 Add 5 more monitored GCP environments for{" "}
-                <span className="font-bold tracking-tight text-glow" style={{ textShadow: "0 0 12px rgba(103,232,249,0.35)" }}>
+                <span className="font-bold tracking-tight text-glow" style={{ textShadow: "0 0 12px rgba(53,198,167,0.35)" }}>
                   +&nbsp;$1/month
                 </span>
                 .

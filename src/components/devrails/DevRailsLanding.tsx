@@ -396,7 +396,6 @@ function TrustCredibility() {
           eyebrow="// BUILT FOR BUILDERS"
           title="Built for builders who"
           accent="ship on GCP."
-          accentClass="text-secondary-accent"
           subtitle="DevRails starts small on purpose: usage monitoring, practical alerts, simple guardrails, and pricing that does not punish side projects."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -405,7 +404,7 @@ function TrustCredibility() {
               key={c.title}
               className="glass rounded-[18px] p-6 shadow-soft transition-colors hover:border-ink/15"
             >
-              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-secondary-accent/10 text-secondary-accent">
+              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-flame/10 text-flame">
                 {c.icon}
               </span>
               <h3 className="mt-5 text-[16px] font-semibold tracking-tight text-ink">{c.title}</h3>
@@ -465,14 +464,14 @@ function Problem() {
           eyebrow="// THE PROBLEM"
           title="Cloud bills do not explode all at once."
           accent="Usage does."
-          accentClass="text-glow"
+          accentClass="text-warning"
           subtitle="Most surprise GCP bills start as small usage mistakes: a recursive function, a noisy log setting, an oversized query, or outbound traffic nobody noticed."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (
             <div key={c.title} className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
               <div className="flex items-center justify-between">
-                <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-glow/15 text-glow">
+                <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-warning/10 text-warning">
                   {c.icon}
                 </span>
                 <span className="bracket-label">[ {c.tag} ]</span>
@@ -482,7 +481,7 @@ function Problem() {
               <div className="mt-4 flex items-center gap-2 font-mono text-[11px] text-ink-muted">
                 <span>root cause</span>
                 <ArrowRight className="h-3 w-3" />
-                <span className="text-glow">bill risk</span>
+                <span className="text-danger-text">bill risk</span>
               </div>
             </div>
           ))}

@@ -217,12 +217,12 @@ function HeroDashboard() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
         <div className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-flame/10">
-            <Gauge className="h-4 w-4 text-flame" />
+          <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-secondary-accent/10">
+            <Gauge className="h-4 w-4 text-secondary-accent" />
           </span>
           <span className="text-[14px] font-semibold text-ink">prod-builder-01</span>
           <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-medium text-ink">
-            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-flame" />
+            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-glow" />
             Active
           </span>
         </div>
@@ -259,7 +259,7 @@ function HeroDashboard() {
                 <div className="font-mono text-[11px] text-ink-muted">of 2.00M always-free</div>
               </div>
               <div className="text-right">
-                <div className="font-mono text-[11px] text-flame">71% used</div>
+                <div className="font-mono text-[11px] text-glow">71% used</div>
                 <div className="font-mono text-[11px] text-ink-muted">+18% vs last week</div>
               </div>
             </div>
@@ -267,8 +267,8 @@ function HeroDashboard() {
               {/* lower threshold marker at 60% */}
               <div className="absolute top-0 bottom-0 left-[60%] w-px bg-ink-muted/60" />
               {/* higher threshold marker at 90% */}
-              <div className="absolute top-0 bottom-0 left-[90%] w-px bg-flame" />
-              <div className="h-full w-[71%] rounded-full bg-flame" />
+              <div className="absolute top-0 bottom-0 left-[90%] w-px bg-glow" />
+              <div className="h-full w-[71%] rounded-full bg-glow" />
             </div>
             <div className="mt-2 flex justify-between font-mono text-[10px] text-ink-muted">
               <span>0</span>
@@ -282,7 +282,7 @@ function HeroDashboard() {
             {[18, 22, 30, 26, 38, 52, 71].map((h, i) => (
               <div key={i} className="flex-1">
                 <div
-                  className={`w-full rounded-t-sm ${h >= 60 ? "bg-flame" : "bg-ink/30"}`}
+                  className={`w-full rounded-t-sm ${h >= 60 ? "bg-glow" : "bg-ink/30"}`}
                   style={{ height: `${h}px` }}
                 />
                 <div className="mt-1 text-center font-mono text-[9px] text-ink-muted">
@@ -297,20 +297,20 @@ function HeroDashboard() {
         <div className="min-w-0 overflow-hidden rounded-[14px] border border-border bg-white p-4 md:col-span-2">
           <div className="flex items-center justify-between">
             <span className="bracket-label">[ RULES · IF X → DO Y ]</span>
-            <span className="font-mono text-[11px] text-flame">2 active</span>
+            <span className="font-mono text-[11px] text-glow">2 active</span>
           </div>
           <ul className="mt-3 space-y-2.5 font-mono text-[12px] text-ink-soft">
             <li className="min-w-0 overflow-hidden rounded-[10px] border border-border bg-surface p-3">
               <div className="text-ink-muted">if</div>
               <div className="truncate text-ink">cloud_run.requests &gt; lower</div>
               <div className="mt-1 text-ink-muted">→ then</div>
-              <div className="truncate text-flame">alert(email, slack)</div>
+              <div className="truncate text-glow">alert(email, slack)</div>
             </li>
             <li className="min-w-0 overflow-hidden rounded-[10px] border border-border bg-surface p-3">
               <div className="text-ink-muted">if</div>
               <div className="truncate text-ink">cloud_run.requests &gt; higher</div>
               <div className="mt-1 text-ink-muted">→ then</div>
-              <div className="truncate text-flame">quota.set_zero("run.googleapis.com")</div>
+              <div className="truncate text-glow">quota.set_zero("run.googleapis.com")</div>
             </li>
           </ul>
         </div>
@@ -323,7 +323,7 @@ function HeroDashboard() {
           <span className="rounded bg-secondary px-1.5 py-0.5 text-ink">[ EGRESS ]</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-flame" />
+          <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-glow" />
           watching 5 projects
         </div>
       </div>

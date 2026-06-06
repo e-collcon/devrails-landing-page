@@ -12,4 +12,9 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Force-enable Nitro with the Vercel preset so `bun run build` produces a
+  // Vercel Build Output API bundle under `.vercel/output/`.
+  nitro: {
+    preset: "vercel",
+  },
 });

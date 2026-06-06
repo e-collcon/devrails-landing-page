@@ -217,12 +217,12 @@ function HeroDashboard() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
         <div className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-flame/10">
-            <Gauge className="h-4 w-4 text-flame" />
+          <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-secondary-accent/10">
+            <Gauge className="h-4 w-4 text-secondary-accent" />
           </span>
           <span className="text-[14px] font-semibold text-ink">prod-builder-01</span>
           <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-medium text-ink">
-            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-flame" />
+            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-glow" />
             Active
           </span>
         </div>
@@ -259,7 +259,7 @@ function HeroDashboard() {
                 <div className="font-mono text-[11px] text-ink-muted">of 2.00M always-free</div>
               </div>
               <div className="text-right">
-                <div className="font-mono text-[11px] text-flame">71% used</div>
+                <div className="font-mono text-[11px] text-glow">71% used</div>
                 <div className="font-mono text-[11px] text-ink-muted">+18% vs last week</div>
               </div>
             </div>
@@ -267,8 +267,8 @@ function HeroDashboard() {
               {/* lower threshold marker at 60% */}
               <div className="absolute top-0 bottom-0 left-[60%] w-px bg-ink-muted/60" />
               {/* higher threshold marker at 90% */}
-              <div className="absolute top-0 bottom-0 left-[90%] w-px bg-flame" />
-              <div className="h-full w-[71%] rounded-full bg-flame" />
+              <div className="absolute top-0 bottom-0 left-[90%] w-px bg-glow" />
+              <div className="h-full w-[71%] rounded-full bg-glow" />
             </div>
             <div className="mt-2 flex justify-between font-mono text-[10px] text-ink-muted">
               <span>0</span>
@@ -282,7 +282,7 @@ function HeroDashboard() {
             {[18, 22, 30, 26, 38, 52, 71].map((h, i) => (
               <div key={i} className="flex-1">
                 <div
-                  className={`w-full rounded-t-sm ${h >= 60 ? "bg-flame" : "bg-ink/30"}`}
+                  className={`w-full rounded-t-sm ${h >= 60 ? "bg-glow" : "bg-ink/30"}`}
                   style={{ height: `${h}px` }}
                 />
                 <div className="mt-1 text-center font-mono text-[9px] text-ink-muted">
@@ -297,20 +297,20 @@ function HeroDashboard() {
         <div className="min-w-0 overflow-hidden rounded-[14px] border border-border bg-white p-4 md:col-span-2">
           <div className="flex items-center justify-between">
             <span className="bracket-label">[ RULES · IF X → DO Y ]</span>
-            <span className="font-mono text-[11px] text-flame">2 active</span>
+            <span className="font-mono text-[11px] text-glow">2 active</span>
           </div>
           <ul className="mt-3 space-y-2.5 font-mono text-[12px] text-ink-soft">
             <li className="min-w-0 overflow-hidden rounded-[10px] border border-border bg-surface p-3">
               <div className="text-ink-muted">if</div>
               <div className="truncate text-ink">cloud_run.requests &gt; lower</div>
               <div className="mt-1 text-ink-muted">→ then</div>
-              <div className="truncate text-flame">alert(email, slack)</div>
+              <div className="truncate text-glow">alert(email, slack)</div>
             </li>
             <li className="min-w-0 overflow-hidden rounded-[10px] border border-border bg-surface p-3">
               <div className="text-ink-muted">if</div>
               <div className="truncate text-ink">cloud_run.requests &gt; higher</div>
               <div className="mt-1 text-ink-muted">→ then</div>
-              <div className="truncate text-flame">quota.set_zero("run.googleapis.com")</div>
+              <div className="truncate text-glow">quota.set_zero("run.googleapis.com")</div>
             </li>
           </ul>
         </div>
@@ -323,7 +323,7 @@ function HeroDashboard() {
           <span className="rounded bg-secondary px-1.5 py-0.5 text-ink">[ EGRESS ]</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-flame" />
+          <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-glow" />
           watching 5 projects
         </div>
       </div>
@@ -338,12 +338,14 @@ function SectionHeader({
   title,
   accent,
   subtitle,
+  accentClass,
 }: {
   index?: string;
   eyebrow: string;
   title: string;
   accent?: string;
   subtitle?: string;
+  accentClass?: string;
 }) {
   return (
     <div className="mx-auto max-w-[820px] text-center">
@@ -352,7 +354,7 @@ function SectionHeader({
       </div>
       <h2 className="mt-5 text-[36px] font-bold leading-[1.1] tracking-[-0.02em] text-ink md:text-[52px]">
         {title}{" "}
-        {accent && <span className="text-flame">{accent}</span>}
+        {accent && <span className={accentClass ?? "text-flame"}>{accent}</span>}
       </h2>
       {subtitle && (
         <p className="mx-auto mt-5 max-w-[680px] text-[17px] leading-[1.55] text-ink-soft md:text-[18px]">
@@ -394,6 +396,7 @@ function TrustCredibility() {
           eyebrow="// BUILT FOR BUILDERS"
           title="Built for builders who"
           accent="ship on GCP."
+          accentClass="text-secondary-accent"
           subtitle="DevRails starts small on purpose: usage monitoring, practical alerts, simple guardrails, and pricing that does not punish side projects."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -402,7 +405,7 @@ function TrustCredibility() {
               key={c.title}
               className="glass rounded-[18px] p-6 shadow-soft transition-colors hover:border-ink/15"
             >
-              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-flame/10 text-flame">
+              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-secondary-accent/10 text-secondary-accent">
                 {c.icon}
               </span>
               <h3 className="mt-5 text-[16px] font-semibold tracking-tight text-ink">{c.title}</h3>
@@ -462,13 +465,14 @@ function Problem() {
           eyebrow="// THE PROBLEM"
           title="Cloud bills do not explode all at once."
           accent="Usage does."
+          accentClass="text-glow"
           subtitle="Most surprise GCP bills start as small usage mistakes: a recursive function, a noisy log setting, an oversized query, or outbound traffic nobody noticed."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (
             <div key={c.title} className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
               <div className="flex items-center justify-between">
-                <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-secondary text-ink">
+                <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-glow/15 text-glow">
                   {c.icon}
                 </span>
                 <span className="bracket-label">[ {c.tag} ]</span>
@@ -478,7 +482,7 @@ function Problem() {
               <div className="mt-4 flex items-center gap-2 font-mono text-[11px] text-ink-muted">
                 <span>root cause</span>
                 <ArrowRight className="h-3 w-3" />
-                <span className="text-flame">bill risk</span>
+                <span className="text-glow">bill risk</span>
               </div>
             </div>
           ))}
@@ -565,7 +569,7 @@ function HowItWorks() {
           {steps.map((s) => (
             <div
               key={s.n}
-              className="relative rounded-[18px] border border-border bg-white p-5 shadow-soft"
+              className="relative flex h-full flex-col rounded-[18px] border border-border bg-white p-5 shadow-soft"
             >
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[12px] text-ink-muted">{s.n}</span>
@@ -575,7 +579,7 @@ function HowItWorks() {
               </div>
               <h3 className="mt-4 text-[15px] font-semibold tracking-tight text-ink">{s.title}</h3>
               <p className="mt-2 text-[13.5px] leading-[1.55] text-ink-soft">{s.body}</p>
-              <div className="mt-4 bracket-label">{s.tag}</div>
+              <div className="mt-auto pt-4 bracket-label">{s.tag}</div>
             </div>
           ))}
         </div>
@@ -735,12 +739,13 @@ function UseCases() {
           eyebrow="// USE CASES"
           title="Guardrails for the ways"
           accent="GCP actually gets expensive."
+          accentClass="text-secondary-accent"
           subtitle="DevRails focuses on the usage patterns that hurt builders most: runaway loops, egress, bloat, oversized queries, and forgotten resources."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cases.map((c) => (
             <div key={c.title} className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
-              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-flame/10 text-flame">
+              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-secondary-accent/10 text-secondary-accent">
                 {c.icon}
               </span>
               <h3 className="mt-4 text-[16px] font-semibold tracking-tight text-ink">{c.title}</h3>
@@ -884,6 +889,7 @@ function FAQ() {
           eyebrow="// FAQ"
           title="Questions,"
           accent="answered."
+          accentClass="text-glow"
           subtitle="Everything you need to know before you trust DevRails with your GCP usage."
         />
         <div className="mx-auto mt-12 max-w-[800px] divide-y divide-border border-y border-border">
@@ -1205,7 +1211,7 @@ function FooterCol({
 }) {
   return (
     <div>
-      <h4 className="font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+      <h4 className="font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
         {heading}
       </h4>
       <ul className={inline ? "mt-3 flex flex-wrap gap-x-5 gap-y-2" : "mt-4 space-y-2.5"}>
@@ -1243,7 +1249,7 @@ function SocialIcon({
       aria-disabled={isPlaceholder || undefined}
       onClick={isPlaceholder ? (e) => e.preventDefault() : undefined}
       tabIndex={isPlaceholder ? -1 : undefined}
-      className={`grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-ink transition-colors ${
+      className={`grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-flame transition-colors ${
         isPlaceholder
           ? "cursor-not-allowed opacity-60"
           : "hover:border-flame hover:text-flame"

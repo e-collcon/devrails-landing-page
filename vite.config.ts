@@ -16,5 +16,10 @@ export default defineConfig({
   // Vercel Build Output API bundle under `.vercel/output/`.
   nitro: {
     preset: "vercel",
+    output: {
+      dir: ".vercel/output",
+      serverDir: ".vercel/output/functions/__nitro.func",
+      publicDir: ".vercel/output/static",
+    },
   },
 });

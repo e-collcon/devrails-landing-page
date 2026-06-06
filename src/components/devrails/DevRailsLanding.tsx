@@ -497,6 +497,7 @@ function HowItWorks() {
       title: "Connect your GCP project",
       body: "Add a GCP environment you own and let DevRails watch the billable usage signals that matter.",
       tag: "[ CONNECT ]",
+      tone: "flame" as const,
     },
     {
       n: "02",
@@ -504,6 +505,7 @@ function HowItWorks() {
       title: "Set your usage rails",
       body: "Choose lower and higher thresholds based on Always Free limits or your own safe operating range.",
       tag: "[ LOWER · HIGHER ]",
+      tone: "purple" as const,
     },
     {
       n: "03",
@@ -511,6 +513,7 @@ function HowItWorks() {
       title: "Get warned early",
       body: "When usage crosses the lower threshold, DevRails sends a configurable alert so you can act before panic mode.",
       tag: "[ ALERT ]",
+      tone: "warning" as const,
     },
     {
       n: "04",
@@ -518,6 +521,7 @@ function HowItWorks() {
       title: "Trigger guardrails",
       body: "When usage crosses the higher threshold, DevRails can alert again, set selected API quotas to zero, or disable billing if you explicitly enable hard protection.",
       tag: "[ QUOTA.ZERO ]",
+      tone: "flame" as const,
     },
     {
       n: "05",
@@ -525,8 +529,15 @@ function HowItWorks() {
       title: "Review the situation",
       body: "Use short-window dashboards and situation reports to understand what happened without storing unnecessary data forever.",
       tag: "[ 7 DAY WINDOW ]",
+      tone: "tosca" as const,
     },
   ];
+  const toneClass: Record<"flame" | "purple" | "warning" | "tosca", string> = {
+    flame: "bg-flame/10 text-flame",
+    purple: "bg-secondary-accent/10 text-secondary-accent",
+    warning: "bg-warning/10 text-warning",
+    tosca: "bg-glow/15 text-glow",
+  };
   return (
     <section id="how-it-works" className={`${SECTION_PAD} section-grid border-y border-border bg-surface`}>
       <div className={SECTION_WRAP}>
@@ -558,7 +569,7 @@ function HowItWorks() {
             >
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[12px] text-ink-muted">{s.n}</span>
-                <span className="grid h-8 w-8 place-items-center rounded-[8px] bg-flame/10 text-flame">
+                <span className={`grid h-8 w-8 place-items-center rounded-[8px] ${toneClass[s.tone]}`}>
                   {s.icon}
                 </span>
               </div>

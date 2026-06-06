@@ -1211,7 +1211,7 @@ function FooterCol({
 }) {
   return (
     <div>
-      <h4 className="font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+      <h4 className="font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
         {heading}
       </h4>
       <ul className={inline ? "mt-3 flex flex-wrap gap-x-5 gap-y-2" : "mt-4 space-y-2.5"}>
@@ -1249,7 +1249,7 @@ function SocialIcon({
       aria-disabled={isPlaceholder || undefined}
       onClick={isPlaceholder ? (e) => e.preventDefault() : undefined}
       tabIndex={isPlaceholder ? -1 : undefined}
-      className={`grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-ink transition-colors ${
+      className={`grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-flame transition-colors ${
         isPlaceholder
           ? "cursor-not-allowed opacity-60"
           : "hover:border-flame hover:text-flame"

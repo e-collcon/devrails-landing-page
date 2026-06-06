@@ -668,11 +668,10 @@ function Features() {
               <div className="flex items-center gap-2">
                 <Power className="h-4 w-4 text-danger" />
                 <span className="text-[15px] font-semibold text-ink">Hard killswitch</span>
-                <span className="ml-1 inline-flex items-center rounded-full bg-danger-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-danger-text border border-danger-border">
-                  Critical
-                </span>
               </div>
-              <span className="bracket-label">[ BILLING.OFF ]</span>
+              <span className="inline-flex items-center rounded-full bg-danger-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-danger-text border border-danger-border">
+                Critical
+              </span>
             </div>
             <p className="mt-2 text-[13.5px] text-ink-soft">
               Disable billing entirely. Requires explicit opt-in. Hard protection is

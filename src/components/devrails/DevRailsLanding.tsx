@@ -593,16 +593,19 @@ function Features() {
       title: "Usage Clones",
       desc: "Cloud Run, Cloud Functions, App Engine, and Pub/Sub metrics that behave like count-based usage signals.",
       tag: "[ COUNTS ]",
+      tone: "flame" as const,
     },
     {
       title: "Usage Translators",
       desc: "Cloud Storage, BigQuery, Compute Engine, and Network metrics that require translating bytes, seconds, or utilization into risk.",
       tag: "[ BYTES · SECONDS ]",
+      tone: "flame" as const,
     },
     {
       title: "Deep Intel",
       desc: "Cloud Asset, Quotas, Billing, and IAM insights for future optimization reports.",
       tag: "[ ROADMAP ]",
+      tone: "purple" as const,
     },
   ];
 
@@ -637,10 +640,25 @@ function Features() {
         {/* Buckets */}
         <div className="mx-auto mt-12 grid max-w-[1100px] grid-cols-1 gap-4 md:grid-cols-3">
           {buckets.map((b) => (
-            <div key={b.title} className="rounded-[18px] border border-border bg-surface p-5">
+            <div
+              key={b.title}
+              className={
+                b.tone === "purple"
+                  ? "rounded-[18px] border border-secondary-accent/30 bg-secondary-accent/[0.04] p-5"
+                  : "rounded-[18px] border border-border bg-surface p-5"
+              }
+            >
               <div className="flex items-center justify-between">
                 <h3 className="text-[15px] font-semibold text-ink">{b.title}</h3>
-                <span className="bracket-label">{b.tag}</span>
+                <span
+                  className={
+                    b.tone === "purple"
+                      ? "bracket-label text-secondary-accent"
+                      : "bracket-label"
+                  }
+                >
+                  {b.tag}
+                </span>
               </div>
               <p className="mt-2 text-[13.5px] leading-[1.55] text-ink-soft">{b.desc}</p>
             </div>

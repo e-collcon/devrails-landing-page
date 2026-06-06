@@ -16,5 +16,15 @@ export default defineConfig({
   // Vercel Build Output API bundle under `.vercel/output/`.
   nitro: {
     preset: "vercel",
+    // The Lovable wrapper's defaults force `dist/{server,client}`, which
+    // overrides the Vercel preset's expected Build Output API layout. Set the
+    // paths explicitly so Nitro emits a valid `.vercel/output/` tree that
+    // matches the routes Nitro writes into `.vercel/output/config.json`
+    // (which targets `/__server` → `functions/__server.func`).
+    output: {
+      dir: ".vercel/output",
+      publicDir: ".vercel/output/static",
+      serverDir: ".vercel/output/functions/__server.func",
+    },
   },
 });

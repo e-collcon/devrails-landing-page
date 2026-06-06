@@ -808,7 +808,7 @@ function Pricing() {
               </div>
               <p className="mt-2 text-[14px] leading-[1.55] text-white/85">
                 Add 5 more monitored GCP environments for{" "}
-                <span className="font-bold tracking-tight text-glow" style={{ textShadow: "0 0 12px rgba(103,232,249,0.35)" }}>
+                <span className="font-bold tracking-tight text-glow" style={{ textShadow: "0 0 12px rgba(53,198,167,0.35)" }}>
                   +&nbsp;$1/month
                 </span>
                 .

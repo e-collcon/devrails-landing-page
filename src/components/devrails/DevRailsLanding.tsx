@@ -191,7 +191,7 @@ function Hero() {
           </a>
           <a
             href="#how-it-works"
-            className="inline-flex items-center gap-2 rounded-[10px] border border-border bg-white px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:border-secondary-accent hover:text-secondary-accent hover:bg-secondary-accent/5"
+            className="inline-flex items-center gap-2 rounded-[10px] border border-border bg-white px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:border-flame hover:text-flame hover:bg-flame/5"
           >
             See how it works
           </a>
@@ -217,8 +217,8 @@ function HeroDashboard() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
         <div className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-secondary-accent/10">
-            <Gauge className="h-4 w-4 text-secondary-accent" />
+          <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-flame/10">
+            <Gauge className="h-4 w-4 text-flame" />
           </span>
           <span className="text-[14px] font-semibold text-ink">prod-builder-01</span>
           <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-medium text-ink">
@@ -259,7 +259,7 @@ function HeroDashboard() {
                 <div className="font-mono text-[11px] text-ink-muted">of 2.00M always-free</div>
               </div>
               <div className="text-right">
-                <div className="font-mono text-[11px] text-glow">71% used</div>
+                <div className="font-mono text-[11px] text-warning">71% used</div>
                 <div className="font-mono text-[11px] text-ink-muted">+18% vs last week</div>
               </div>
             </div>
@@ -267,8 +267,8 @@ function HeroDashboard() {
               {/* lower threshold marker at 60% */}
               <div className="absolute top-0 bottom-0 left-[60%] w-px bg-ink-muted/60" />
               {/* higher threshold marker at 90% */}
-              <div className="absolute top-0 bottom-0 left-[90%] w-px bg-glow" />
-              <div className="h-full w-[71%] rounded-full bg-glow" />
+              <div className="absolute top-0 bottom-0 left-[90%] w-px bg-danger" />
+              <div className="h-full w-[71%] rounded-full bg-warning" />
             </div>
             <div className="mt-2 flex justify-between font-mono text-[10px] text-ink-muted">
               <span>0</span>
@@ -282,7 +282,7 @@ function HeroDashboard() {
             {[18, 22, 30, 26, 38, 52, 71].map((h, i) => (
               <div key={i} className="flex-1">
                 <div
-                  className={`w-full rounded-t-sm ${h >= 60 ? "bg-glow" : "bg-ink/30"}`}
+                  className={`w-full rounded-t-sm ${h >= 60 ? "bg-warning" : "bg-flame/30"}`}
                   style={{ height: `${h}px` }}
                 />
                 <div className="mt-1 text-center font-mono text-[9px] text-ink-muted">
@@ -297,14 +297,14 @@ function HeroDashboard() {
         <div className="min-w-0 overflow-hidden rounded-[14px] border border-border bg-white p-4 md:col-span-2">
           <div className="flex items-center justify-between">
             <span className="bracket-label">[ RULES · IF X → DO Y ]</span>
-            <span className="font-mono text-[11px] text-glow">2 active</span>
+            <span className="font-mono text-[11px] text-glow">2 armed</span>
           </div>
           <ul className="mt-3 space-y-2.5 font-mono text-[12px] text-ink-soft">
             <li className="min-w-0 overflow-hidden rounded-[10px] border border-border bg-surface p-3">
               <div className="text-ink-muted">if</div>
               <div className="truncate text-ink">cloud_run.requests &gt; lower</div>
               <div className="mt-1 text-ink-muted">→ then</div>
-              <div className="truncate text-glow">alert(email, slack)</div>
+              <div className="truncate text-warning">alert(email, slack)</div>
             </li>
             <li className="min-w-0 overflow-hidden rounded-[10px] border border-border bg-surface p-3">
               <div className="text-ink-muted">if</div>
@@ -396,7 +396,6 @@ function TrustCredibility() {
           eyebrow="// BUILT FOR BUILDERS"
           title="Built for builders who"
           accent="ship on GCP."
-          accentClass="text-secondary-accent"
           subtitle="DevRails starts small on purpose: usage monitoring, practical alerts, simple guardrails, and pricing that does not punish side projects."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -405,7 +404,7 @@ function TrustCredibility() {
               key={c.title}
               className="glass rounded-[18px] p-6 shadow-soft transition-colors hover:border-ink/15"
             >
-              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-secondary-accent/10 text-secondary-accent">
+              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-flame/10 text-flame">
                 {c.icon}
               </span>
               <h3 className="mt-5 text-[16px] font-semibold tracking-tight text-ink">{c.title}</h3>
@@ -465,14 +464,14 @@ function Problem() {
           eyebrow="// THE PROBLEM"
           title="Cloud bills do not explode all at once."
           accent="Usage does."
-          accentClass="text-glow"
+          accentClass="text-warning"
           subtitle="Most surprise GCP bills start as small usage mistakes: a recursive function, a noisy log setting, an oversized query, or outbound traffic nobody noticed."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (
             <div key={c.title} className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
               <div className="flex items-center justify-between">
-                <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-glow/15 text-glow">
+                <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-warning/10 text-warning">
                   {c.icon}
                 </span>
                 <span className="bracket-label">[ {c.tag} ]</span>
@@ -482,7 +481,7 @@ function Problem() {
               <div className="mt-4 flex items-center gap-2 font-mono text-[11px] text-ink-muted">
                 <span>root cause</span>
                 <ArrowRight className="h-3 w-3" />
-                <span className="text-glow">bill risk</span>
+                <span className="text-danger-text">bill risk</span>
               </div>
             </div>
           ))}
@@ -509,7 +508,7 @@ function HowItWorks() {
       title: "Set your usage rails",
       body: "Choose lower and higher thresholds based on Always Free limits or your own safe operating range.",
       tag: "[ LOWER · HIGHER ]",
-      tone: "purple" as const,
+      tone: "flame" as const,
     },
     {
       n: "03",
@@ -533,12 +532,11 @@ function HowItWorks() {
       title: "Review the situation",
       body: "Use short-window dashboards and situation reports to understand what happened without storing unnecessary data forever.",
       tag: "[ 7 DAY WINDOW ]",
-      tone: "tosca" as const,
+      tone: "flame" as const,
     },
   ];
-  const toneClass: Record<"flame" | "purple" | "warning" | "tosca", string> = {
+  const toneClass: Record<"flame" | "warning" | "tosca", string> = {
     flame: "bg-flame/10 text-flame",
-    purple: "bg-secondary-accent/10 text-secondary-accent",
     warning: "bg-warning/10 text-warning",
     tosca: "bg-glow/15 text-glow",
   };
@@ -595,33 +593,35 @@ function Features() {
       title: "Usage Clones",
       desc: "Cloud Run, Cloud Functions, App Engine, and Pub/Sub metrics that behave like count-based usage signals.",
       tag: "[ COUNTS ]",
+      tone: "flame" as const,
     },
     {
       title: "Usage Translators",
       desc: "Cloud Storage, BigQuery, Compute Engine, and Network metrics that require translating bytes, seconds, or utilization into risk.",
       tag: "[ BYTES · SECONDS ]",
+      tone: "flame" as const,
     },
     {
       title: "Deep Intel",
       desc: "Cloud Asset, Quotas, Billing, and IAM insights for future optimization reports.",
       tag: "[ ROADMAP ]",
+      tone: "purple" as const,
     },
   ];
 
   const caps = [
     { icon: <Activity className="h-4 w-4" />, title: "Near real-time usage monitoring", body: "Put a meter on GCP usage signals that can turn into billable spend.", tone: "flame" as const },
     { icon: <Bell className="h-4 w-4" />, title: "Lower-threshold alerts", body: "Get notified when usage starts moving beyond the safe range.", tone: "warning" as const },
-    { icon: <Zap className="h-4 w-4" />, title: "Higher-threshold actions", body: "Choose what happens next: alert, soft killswitch, or hard killswitch.", tone: "purple" as const },
+    { icon: <Zap className="h-4 w-4" />, title: "Higher-threshold actions", body: "Choose what happens next: alert, soft killswitch, or hard killswitch.", tone: "warning" as const },
     { icon: <ShieldCheck className="h-4 w-4" />, title: "Soft killswitch", body: "Set selected API quotas to zero to stop runaway usage without immediately disabling the whole billing setup.", tone: "tosca" as const },
     { icon: <Power className="h-4 w-4" />, title: "Hard killswitch", body: "Disable billing only when explicitly enabled, with a clear warning before activation.", tone: "danger" as const },
     { icon: <LineChart className="h-4 w-4" />, title: "7-day dashboard", body: "See recent usage trends without turning DevRails into another long-term data warehouse.", tone: "flame" as const },
     { icon: <Layers className="h-4 w-4" />, title: "Multiple environments", body: "Monitor up to 5 GCP environments/projects on the base plan, with simple expansion pricing.", tone: "flame" as const },
-    { icon: <FileText className="h-4 w-4" />, title: "Situation reports", body: "Receive periodic summaries so you can understand usage patterns while keeping data retention lightweight.", tone: "purple" as const },
+    { icon: <FileText className="h-4 w-4" />, title: "Situation reports", body: "Receive periodic summaries so you can understand usage patterns while keeping data retention lightweight.", tone: "flame" as const },
     { icon: <Cloud className="h-4 w-4" />, title: "GCP coverage roadmap", body: "Start with usage metrics, then expand into deeper GCP intelligence where it creates clear value.", tone: "flame" as const },
   ];
-  const capTone: Record<"flame" | "purple" | "warning" | "tosca" | "danger", string> = {
+  const capTone: Record<"flame" | "warning" | "tosca" | "danger", string> = {
     flame: "bg-flame/10 text-flame",
-    purple: "bg-secondary-accent/10 text-secondary-accent",
     warning: "bg-warning/10 text-warning",
     tosca: "bg-glow/15 text-glow",
     danger: "bg-danger-soft text-danger",
@@ -640,10 +640,25 @@ function Features() {
         {/* Buckets */}
         <div className="mx-auto mt-12 grid max-w-[1100px] grid-cols-1 gap-4 md:grid-cols-3">
           {buckets.map((b) => (
-            <div key={b.title} className="rounded-[18px] border border-border bg-surface p-5">
+            <div
+              key={b.title}
+              className={
+                b.tone === "purple"
+                  ? "rounded-[18px] border border-secondary-accent/30 bg-secondary-accent/[0.04] p-5"
+                  : "rounded-[18px] border border-border bg-surface p-5"
+              }
+            >
               <div className="flex items-center justify-between">
                 <h3 className="text-[15px] font-semibold text-ink">{b.title}</h3>
-                <span className="bracket-label">{b.tag}</span>
+                <span
+                  className={
+                    b.tone === "purple"
+                      ? "bracket-label text-secondary-accent"
+                      : "bracket-label"
+                  }
+                >
+                  {b.tag}
+                </span>
               </div>
               <p className="mt-2 text-[13.5px] leading-[1.55] text-ink-soft">{b.desc}</p>
             </div>
@@ -739,13 +754,12 @@ function UseCases() {
           eyebrow="// USE CASES"
           title="Guardrails for the ways"
           accent="GCP actually gets expensive."
-          accentClass="text-secondary-accent"
           subtitle="DevRails focuses on the usage patterns that hurt builders most: runaway loops, egress, bloat, oversized queries, and forgotten resources."
         />
         <div className="mx-auto mt-14 grid max-w-[1100px] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {cases.map((c) => (
             <div key={c.title} className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
-              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-secondary-accent/10 text-secondary-accent">
+              <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-flame/10 text-flame">
                 {c.icon}
               </span>
               <h3 className="mt-4 text-[16px] font-semibold tracking-tight text-ink">{c.title}</h3>
@@ -889,7 +903,6 @@ function FAQ() {
           eyebrow="// FAQ"
           title="Questions,"
           accent="answered."
-          accentClass="text-glow"
           subtitle="Everything you need to know before you trust DevRails with your GCP usage."
         />
         <div className="mx-auto mt-12 max-w-[800px] divide-y divide-border border-y border-border">

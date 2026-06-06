@@ -664,10 +664,12 @@ function Features() {
           <div className="rounded-[18px] border border-border bg-white p-6 shadow-soft">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-flame" />
+                <ShieldCheck className="h-4 w-4 text-glow" />
                 <span className="text-[15px] font-semibold text-ink">Soft killswitch</span>
               </div>
-              <span className="bracket-label">[ QUOTA.ZERO ]</span>
+              <span className="inline-flex items-center rounded-full bg-glow/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-glow border border-glow/30">
+                Healthy
+              </span>
             </div>
             <p className="mt-2 text-[13.5px] text-ink-soft">
               Set selected API quotas to zero to stop runaway usage. Reversible.
@@ -675,7 +677,7 @@ function Features() {
             <div className="mt-4 flex items-center justify-between rounded-[12px] border border-border bg-surface p-3 font-mono text-[12px] text-ink">
               <span>run.googleapis.com</span>
               <span className="inline-flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-flame" />
+                <span className="h-2 w-2 rounded-full bg-glow" />
                 armed
               </span>
             </div>

@@ -61,7 +61,7 @@ function WordMark({ size = "md" }: { size?: "sm" | "md" }) {
 const ANNOUNCEMENT = {
   enabled: true,
   message: "DevRails is currently in active development.",
-  ctaText: "Join the early access waitlist",
+  ctaText: "Join waitlist",
   ctaHref: "#waitlist",
 };
 
@@ -84,9 +84,9 @@ function AnnouncementBar() {
   return (
     <div className="pt-3">
       <div className={SECTION_WRAP}>
-        <div className="flex h-10 items-center justify-center gap-2 rounded-[12px] bg-flame px-4 text-[13px] font-medium text-white">
-          <span className="hidden h-1.5 w-1.5 animate-pulse-dot rounded-full bg-white/90 sm:block" />
-          <span className="truncate">{ANNOUNCEMENT.message}</span>
+        <div className="flex min-h-10 flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-[12px] bg-flame px-4 py-2 text-center text-[13px] font-medium leading-snug text-white">
+          <span className="hidden h-1.5 w-1.5 shrink-0 animate-pulse-dot rounded-full bg-white/90 sm:block" />
+          <span>{ANNOUNCEMENT.message}</span>
           <a href={ANNOUNCEMENT.ctaHref} className="font-semibold underline underline-offset-2">
             {ANNOUNCEMENT.ctaText} →
           </a>
@@ -148,7 +148,7 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0 tech-grid tech-grid-fade opacity-60" />
       <div className="pointer-events-none absolute inset-0">
         <span className="bracket-label absolute left-[6%] top-[18%]">[ GCP.USAGE ]</span>
-        <span className="bracket-label absolute right-[8%] top-[14%]">[ ALWAYS FREE ]</span>
+        <span className="bracket-label absolute right-[8%] top-[14%]">[ ON RAILS ]</span>
         <span className="bracket-label absolute left-[10%] bottom-[18%]">[ LOWER THRESHOLD ]</span>
         <span className="bracket-label absolute right-[10%] bottom-[22%]">[ SOFT KILLSWITCH ]</span>
         <span className="bracket-label absolute left-[44%] bottom-[8%]">[ BILLING GUARDRAIL ]</span>
@@ -294,23 +294,23 @@ function HeroDashboard() {
         </div>
 
         {/* Rules panel */}
-        <div className="rounded-[14px] border border-border bg-white p-4 md:col-span-2">
+        <div className="min-w-0 overflow-hidden rounded-[14px] border border-border bg-white p-4 md:col-span-2">
           <div className="flex items-center justify-between">
             <span className="bracket-label">[ RULES · IF X → DO Y ]</span>
             <span className="font-mono text-[11px] text-flame">2 active</span>
           </div>
           <ul className="mt-3 space-y-2.5 font-mono text-[12px] text-ink-soft">
-            <li className="rounded-[10px] border border-border bg-surface p-3">
+            <li className="min-w-0 overflow-hidden rounded-[10px] border border-border bg-surface p-3">
               <div className="text-ink-muted">if</div>
-              <div className="text-ink">cloud_run.requests &gt; lower</div>
+              <div className="truncate text-ink">cloud_run.requests &gt; lower</div>
               <div className="mt-1 text-ink-muted">→ then</div>
-              <div className="text-flame">alert(email, slack)</div>
+              <div className="truncate text-flame">alert(email, slack)</div>
             </li>
-            <li className="rounded-[10px] border border-border bg-surface p-3">
+            <li className="min-w-0 overflow-hidden rounded-[10px] border border-border bg-surface p-3">
               <div className="text-ink-muted">if</div>
-              <div className="text-ink">cloud_run.requests &gt; higher</div>
+              <div className="truncate text-ink">cloud_run.requests &gt; higher</div>
               <div className="mt-1 text-ink-muted">→ then</div>
-              <div className="text-flame">quota.set_zero("run.googleapis.com")</div>
+              <div className="truncate text-flame">quota.set_zero("run.googleapis.com")</div>
             </li>
           </ul>
         </div>

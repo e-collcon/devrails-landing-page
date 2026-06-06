@@ -794,7 +794,7 @@ function Pricing() {
             <ul className="mt-6 space-y-2.5 text-[14px] text-white/85">
               {included.map((f) => (
                 <li key={f} className="flex items-start gap-2">
-                  <Check className="mt-0.5 h-4 w-4 text-flame" />
+                  <Check className="mt-0.5 h-4 w-4 text-glow" />
                   <span>{f}</span>
                 </li>
               ))}

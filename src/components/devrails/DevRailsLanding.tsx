@@ -508,7 +508,7 @@ function HowItWorks() {
       title: "Set your usage rails",
       body: "Choose lower and higher thresholds based on Always Free limits or your own safe operating range.",
       tag: "[ LOWER · HIGHER ]",
-      tone: "purple" as const,
+      tone: "flame" as const,
     },
     {
       n: "03",
@@ -532,12 +532,11 @@ function HowItWorks() {
       title: "Review the situation",
       body: "Use short-window dashboards and situation reports to understand what happened without storing unnecessary data forever.",
       tag: "[ 7 DAY WINDOW ]",
-      tone: "tosca" as const,
+      tone: "flame" as const,
     },
   ];
-  const toneClass: Record<"flame" | "purple" | "warning" | "tosca", string> = {
+  const toneClass: Record<"flame" | "warning" | "tosca", string> = {
     flame: "bg-flame/10 text-flame",
-    purple: "bg-secondary-accent/10 text-secondary-accent",
     warning: "bg-warning/10 text-warning",
     tosca: "bg-glow/15 text-glow",
   };

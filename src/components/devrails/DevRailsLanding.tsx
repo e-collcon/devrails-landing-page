@@ -34,6 +34,7 @@ import {
   Briefcase,
   Code2,
 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 /* =====================================================================
    DevRails — GCP usage guardrails for builders.
@@ -969,7 +970,84 @@ function FinalCTA() {
 
   const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setErrorMsg("");
+
+  const trimmedEmail = email.trim();
+  const trimmedName = name.trim();
+  const trimmedProjects = projects.trim();
+
+  if (!isValidEmail(trimmedEmail)) {
+    setStatus("error");
+    setErrorMsg("Please enter a valid email address.");
+    return;
+  }
+
+  if (!consent) {
+    setStatus("error");
+    setErrorMsg("Please agree to receive DevRails updates.");
+    return;
+  }
+
+  setStatus("submitting");
+
+  try {
+    const { error } = await supabase.from("waitlist_signups").insert({
+      email: trimmedEmail,
+      name: trimmedName || null,
+      role: role || null,
+      main_gcp_concern: concern || null,
+      gcp_project_count: trimmedProjects ? Number(trimmedProjects) : null,
+      consent: true,
+      source: import.meta.env.DEV ? "dev" : "landing_page",
+      //source: "landing_page",
+      status: "new",
+    });
+
+
+    if (error) {
+      console.error("Waitlist signup error:", {
+        code: error.code,
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+      });
+
+      setStatus("error");
+
+      if (error.code === "23505") {
+        setErrorMsg("This email is already on the waitlist.");
+      } else {
+        setErrorMsg(`Something went wrong. Please try again. (${error.code ?? "unknown"})`);
+      }
+
+      return;
+    }
+
+    /*if (error) {
+      console.error("Waitlist signup error:", error);
+
+      setStatus("error");
+
+      if (error.code === "23505") {
+        setErrorMsg("This email is already on the waitlist.");
+      } else {
+        setErrorMsg("Something went wrong. Please try again.");
+      }
+
+      return;
+    }*/
+
+    setStatus("success");
+  } catch (error) {
+    console.error("Unexpected waitlist signup error:", error);
+    setStatus("error");
+    setErrorMsg("Something went wrong. Please try again.");
+  }
+};
+
+  /*const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
     if (!isValidEmail(email)) {
@@ -991,7 +1069,7 @@ function FinalCTA() {
       setStatus("error");
       setErrorMsg("Something went wrong. Please try again.");
     }
-  };
+  };*/
 
   return (
     <section id="waitlist" className="section-grid relative overflow-hidden border-y border-border bg-surface">
@@ -1039,7 +1117,14 @@ function FinalCTA() {
                   type="email"
                   required
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (status === "error") {
+                        setStatus("idle");
+                        setErrorMsg("");
+                      }
+                    }}
+                  //onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@yourstartup.dev"
                   className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
                 />
@@ -1049,7 +1134,14 @@ function FinalCTA() {
                   id="wl-name"
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => {
+                      setName(e.target.value);
+                      if (status === "error") {
+                        setStatus("idle");
+                        setErrorMsg("");
+                      }
+                    }}
+                  //onChange={(e) => setName(e.target.value)}
                   placeholder="John Doe"
                   className="h-11 w-full rounded-[10px] border border-border bg-white px-3 text-[15px] text-ink placeholder:text-ink-muted focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/20"
                 />
@@ -1094,7 +1186,14 @@ function FinalCTA() {
                 <input
                   type="checkbox"
                   checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
+                  onChange={(e) => {
+                      setConsent(e.target.checked);
+                      if (status === "error") {
+                        setStatus("idle");
+                        setErrorMsg("");
+                      }
+                    }}
+                  //onChange={(e) => setConsent(e.target.checked)}
                   className="mt-0.5 h-4 w-4 cursor-pointer rounded border-border text-flame focus:ring-flame/30"
                 />
                 <span>I agree to receive updates about DevRails early access.</span>

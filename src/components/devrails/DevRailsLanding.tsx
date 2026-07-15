@@ -117,7 +117,7 @@ function Nav() {
             Log In
           </a>
           <a
-            href="/signin?intent=signup"
+            href="/signup"
             className="rounded-[10px] bg-ink px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-black"
           >
             Get Started
@@ -171,7 +171,7 @@ function Hero() {
 
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <a
-            href="/signin?intent=signup"
+            href="/signup"
             className="inline-flex items-center gap-2 rounded-[10px] bg-flame px-5 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-flame-hover shadow-flame"
           >
             Get Started <ArrowRight className="h-4 w-4" />
@@ -821,7 +821,7 @@ function Pricing() {
               </p>
             </div>
             <a
-              href="/signin?intent=signup"
+              href="/signup"
               className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-[10px] bg-flame px-4 py-2.5 text-[14px] font-semibold text-white hover:bg-flame-hover shadow-flame"
             >
               Get Started <ArrowRight className="h-4 w-4" />

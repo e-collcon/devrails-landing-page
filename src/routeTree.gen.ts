@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SigninRouteImport } from './routes/signin'
+import { Route as SignedInRouteImport } from './routes/signed-in'
+import { Route as ResetRouteImport } from './routes/reset'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -19,9 +22,24 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SigninRoute = SigninRouteImport.update({
   id: '/signin',
   path: '/signin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignedInRoute = SignedInRouteImport.update({
+  id: '/signed-in',
+  path: '/signed-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetRoute = ResetRouteImport.update({
+  id: '/reset',
+  path: '/reset',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -38,34 +56,68 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
+  '/reset': typeof ResetRoute
+  '/signed-in': typeof SignedInRoute
   '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
+  '/reset': typeof ResetRoute
+  '/signed-in': typeof SignedInRoute
   '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
+  '/reset': typeof ResetRoute
+  '/signed-in': typeof SignedInRoute
   '/signin': typeof SigninRoute
+  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/privacy' | '/signin' | '/terms'
+  fullPaths:
+    | '/'
+    | '/privacy'
+    | '/reset'
+    | '/signed-in'
+    | '/signin'
+    | '/signup'
+    | '/terms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/privacy' | '/signin' | '/terms'
-  id: '__root__' | '/' | '/privacy' | '/signin' | '/terms'
+  to:
+    | '/'
+    | '/privacy'
+    | '/reset'
+    | '/signed-in'
+    | '/signin'
+    | '/signup'
+    | '/terms'
+  id:
+    | '__root__'
+    | '/'
+    | '/privacy'
+    | '/reset'
+    | '/signed-in'
+    | '/signin'
+    | '/signup'
+    | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivacyRoute: typeof PrivacyRoute
+  ResetRoute: typeof ResetRoute
+  SignedInRoute: typeof SignedInRoute
   SigninRoute: typeof SigninRoute
+  SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -78,11 +130,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signin': {
       id: '/signin'
       path: '/signin'
       fullPath: '/signin'
       preLoaderRoute: typeof SigninRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signed-in': {
+      id: '/signed-in'
+      path: '/signed-in'
+      fullPath: '/signed-in'
+      preLoaderRoute: typeof SignedInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset': {
+      id: '/reset'
+      path: '/reset'
+      fullPath: '/reset'
+      preLoaderRoute: typeof ResetRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -105,7 +178,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivacyRoute: PrivacyRoute,
+  ResetRoute: ResetRoute,
+  SignedInRoute: SignedInRoute,
   SigninRoute: SigninRoute,
+  SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport

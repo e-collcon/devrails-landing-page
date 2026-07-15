@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
 import {
@@ -12,41 +12,57 @@ import {
   type GoogleOutcome,
 } from "@/components/devrails/auth/authShared";
 
-/* EPIC-016 /signin — full-suite variant: Google + email/password.
+/* EPIC-016 /signup — full-suite variant: Google + email/password + consent.
    Pre-wiring UI only; outcomes come from MOCK_USERS. */
 
-export const Route = createFileRoute("/signin")({
+export const Route = createFileRoute("/signup")({
   head: () => ({
     meta: [
-      { title: "Sign in — DevRails" },
-      { name: "description", content: "Sign in to DevRails." },
+      { title: "Get Started — DevRails" },
+      { name: "description", content: "Create your DevRails account." },
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: SignInPage,
+  component: SignUpPage,
 });
 
-function SignInPage() {
+const METER_COLORS = ["var(--danger)", "var(--warning)", "var(--warning)", "var(--glow)"];
+const METER_LABELS = ["// weak", "// getting there", "// good", "// strong"];
+
+function scorePassword(v: string) {
+  let s = 0;
+  if (v.length >= 8) s++;
+  if (/[0-9]/.test(v)) s++;
+  if (/[a-z]/.test(v) && /[A-Z]/.test(v)) s++;
+  if (/[^A-Za-z0-9]/.test(v)) s++;
+  return s;
+}
+
+function SignUpPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [showPass, setShowPass] = useState(false);
+  const [consent, setConsent] = useState(false);
   const [emailErr, setEmailErr] = useState("");
   const [passErr, setPassErr] = useState("");
+  const [consentErr, setConsentErr] = useState("");
   const [callout, setCallout] = useState("");
   const [busy, setBusy] = useState(false);
   const [gOpen, setGOpen] = useState(false);
   const [gBusy, setGBusy] = useState(false);
-  const fails = useRef(0);
+
+  const score = scorePassword(pass);
 
   function signedIn(e: string, provider: string) {
     navigate({ to: "/signed-in", search: { email: e, provider } });
   }
 
-  function doSignIn() {
+  function doSignUp() {
     setCallout("");
     setEmailErr("");
     setPassErr("");
+    setConsentErr("");
     let bad = false;
     if (!email.trim()) {
       setEmailErr("Email is required.");
@@ -58,34 +74,25 @@ function SignInPage() {
     if (!pass) {
       setPassErr("Password is required.");
       bad = true;
+    } else if (pass.length < 8) {
+      setPassErr("Password must be at least 8 characters. (auth/weak-password)");
+      bad = true;
+    }
+    if (!consent) {
+      setConsentErr("Please accept the Terms and Privacy Policy to continue.");
+      bad = true;
     }
     if (bad) return;
 
     setBusy(true);
     setTimeout(() => {
       setBusy(false);
-      if (fails.current >= 3) {
+      if (MOCK_USERS[email.trim()]) {
         setCallout(
-          "Too many failed attempts. Access temporarily blocked — try again later or reset your password. (auth/too-many-requests)",
+          `An account already exists for ${email.trim()}. Log in instead, or reset your password. (auth/email-already-in-use)`,
         );
         return;
       }
-      const u = MOCK_USERS[email.trim()];
-      if (!u) {
-        setCallout(`No account found for ${email.trim()}. Check the address or create an account. (auth/user-not-found)`);
-        fails.current++;
-        return;
-      }
-      if (u.disabled) {
-        setCallout("This account has been disabled. Contact support@thedevrails.com. (auth/user-disabled)");
-        return;
-      }
-      if (u.pass !== pass) {
-        setCallout("Incorrect password. Try again or reset your password. (auth/wrong-password)");
-        fails.current++;
-        return;
-      }
-      fails.current = 0;
       signedIn(email.trim(), "password");
     }, 900);
   }
@@ -121,8 +128,13 @@ function SignInPage() {
       <div>
         <div className="au-card shadow-card">
           <div className="text-center">
-            <h1 className="text-[26px] font-bold tracking-[-0.02em] text-ink">Welcome back</h1>
-            <p className="mt-2 text-[14px] text-ink-soft">Sign in to keep your GCP usage on rails.</p>
+            <h1 className="text-[26px] font-bold tracking-[-0.02em] text-ink">Get Started</h1>
+            <p className="mt-2 text-[14px] text-ink-soft">
+              Guardrails for up to 5 GCP projects.{" "}
+              <span className="inline-flex translate-y-[-1px] items-center rounded-full border border-border bg-secondary px-2 py-[1px] text-[12px] font-medium text-ink">
+                $1/month
+              </span>
+            </p>
           </div>
 
           {callout ? (
@@ -146,11 +158,13 @@ function SignInPage() {
             className="flex flex-col gap-4"
             onSubmit={(e) => {
               e.preventDefault();
-              doSignIn();
+              doSignUp();
             }}
           >
             <div className={`au-field${emailErr ? " show-err" : ""}`}>
-              <label className="au-lbl">Email</label>
+              <label className="au-lbl">
+                Email <span style={{ color: "var(--danger)" }}>*</span>
+              </label>
               <input
                 className="au-in"
                 type="email"
@@ -163,18 +177,15 @@ function SignInPage() {
             </div>
 
             <div className={`au-field${passErr ? " show-err" : ""}`}>
-              <div className="flex items-center justify-between">
-                <label className="au-lbl">Password</label>
-                <span className="au-link text-[12px]" onClick={() => navigate({ to: "/reset" })}>
-                  Forgot password?
-                </span>
-              </div>
+              <label className="au-lbl">
+                Password <span style={{ color: "var(--danger)" }}>*</span>
+              </label>
               <div style={{ position: "relative" }}>
                 <input
                   className="au-in"
                   type={showPass ? "text" : "password"}
-                  autoComplete="current-password"
-                  placeholder="••••••••"
+                  autoComplete="new-password"
+                  placeholder="At least 8 characters"
                   style={{ paddingRight: 40 }}
                   value={pass}
                   onChange={(e) => setPass(e.target.value)}
@@ -199,26 +210,55 @@ function SignInPage() {
                   {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
+
+              {/* strength meter */}
+              <div className="flex gap-1">
+                {[0, 1, 2, 3].map((i) => (
+                  <span
+                    key={i}
+                    style={{
+                      flex: 1,
+                      height: 3,
+                      borderRadius: 99,
+                      background: i < score ? METER_COLORS[score - 1] : "var(--secondary)",
+                    }}
+                  />
+                ))}
+              </div>
+              <span className="font-mono text-[11px] text-ink-muted">
+                {pass ? METER_LABELS[Math.max(score - 1, 0)] : "// min 8 chars · mix letters and numbers"}
+              </span>
               {passErr ? <span className="au-field-err">{passErr}</span> : null}
             </div>
 
+            <label className="flex cursor-pointer items-start gap-2">
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                style={{ marginTop: 2, height: 16, width: 16, accentColor: "var(--flame)" }}
+              />
+              <span className="text-[13px] leading-[1.5] text-ink-soft">
+                I agree to the <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.
+              </span>
+            </label>
+            {consentErr ? <span className="au-field-err mt-[-8px]">{consentErr}</span> : null}
+
             <button className="au-btn au-btn-primary shadow-flame h-11 w-full text-[14px]" type="submit" disabled={busy}>
-              {busy ? <Spinner /> : "Sign in"}
+              {busy ? <Spinner /> : "Create account"}
             </button>
           </form>
 
           <p className="mt-5 text-center text-[13px] text-ink-soft">
-            New to DevRails?{" "}
-            <span className="au-link" onClick={() => navigate({ to: "/signup" })}>
-              Get Started
+            Already have an account?{" "}
+            <span className="au-link" onClick={() => navigate({ to: "/signin" })}>
+              Log In
             </span>
           </p>
         </div>
 
-        <p className="mt-4 text-center font-mono text-[11px] leading-[1.6] text-ink-muted">
-          // demo: builder@collcon.dev / rails123 · wrong password → error
-          <br />
-          // disabled@collcon.dev → disabled account · new@x.dev → no account
+        <p className="mt-4 text-center font-mono text-[11px] text-ink-muted">
+          // demo: builder@collcon.dev → email already in use
         </p>
       </div>
 

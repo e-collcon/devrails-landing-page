@@ -66,13 +66,6 @@ const ANNOUNCEMENT = {
   ctaHref: "#waitlist",
 };
 
-// GitHub button config.
-// TODO: Point this to the public DevRails GitHub repository (or public
-// roadmap repository) once it is published. While empty, the button stays
-// visually present but is non-navigating — DevRails is NOT open source
-// unless/until this URL points to a public, ready repository.
-const GITHUB_REPO_URL = "";
-
 const NAV_LINKS: { label: string; href: string }[] = [
   { label: "Product", href: "#product" },
   { label: "Features", href: "#features" },
@@ -99,7 +92,6 @@ function AnnouncementBar() {
 
 /* ---------- Nav ---------- */
 function Nav() {
-  const githubHref = GITHUB_REPO_URL || "#";
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/75 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className={`${SECTION_WRAP} flex h-[72px] items-center justify-between`}>
@@ -119,22 +111,16 @@ function Nav() {
         </nav>
         <div className="flex items-center gap-2">
           <a
-            href={githubHref}
-            {...(GITHUB_REPO_URL
-              ? { target: "_blank", rel: "noreferrer noopener" }
-              : { "aria-disabled": true, onClick: (e: React.MouseEvent) => e.preventDefault() })}
+            href="/signin"
             className="hidden items-center gap-2 rounded-[10px] border border-border bg-white px-3 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-secondary sm:flex"
           >
-            <Github className="h-4 w-4" />
-            <span>Star</span>
-            <span className="font-mono text-ink-muted">·</span>
-            <span className="font-mono">soon</span>
+            Log In
           </a>
           <a
-            href="#waitlist"
+            href="/signin?intent=signup"
             className="rounded-[10px] bg-ink px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-black"
           >
-            Get early access
+            Get Started
           </a>
         </div>
       </div>
@@ -185,10 +171,10 @@ function Hero() {
 
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <a
-            href="#waitlist"
+            href="/signin?intent=signup"
             className="inline-flex items-center gap-2 rounded-[10px] bg-flame px-5 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-flame-hover shadow-flame"
           >
-            Get early access <ArrowRight className="h-4 w-4" />
+            Get Started <ArrowRight className="h-4 w-4" />
           </a>
           <a
             href="#how-it-works"
@@ -835,10 +821,10 @@ function Pricing() {
               </p>
             </div>
             <a
-              href="#waitlist"
+              href="/signin?intent=signup"
               className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-[10px] bg-flame px-4 py-2.5 text-[14px] font-semibold text-white hover:bg-flame-hover shadow-flame"
             >
-              Get early access <ArrowRight className="h-4 w-4" />
+              Get Started <ArrowRight className="h-4 w-4" />
             </a>
             <p className="mt-3 text-center font-mono text-[11px] text-white/60">
               // no free tier · no pricing maze · just $1/month for practical GCP guardrails
@@ -1215,7 +1201,7 @@ function FinalCTA() {
                 className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-[10px] bg-flame px-4 text-[14px] font-semibold text-white transition-colors hover:bg-flame-hover shadow-flame disabled:opacity-60"
               >
                 {status === "submitting" ? "Submitting…" : (
-                  <>Get early access <ArrowRight className="h-4 w-4" /></>
+                  <>Get Started <ArrowRight className="h-4 w-4" /></>
                 )}
               </button>
 
@@ -1297,7 +1283,7 @@ function Footer() {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 md:flex-row md:items-center">
           <span className="text-[13px] text-ink-muted">
-            © 2026 Coll-Con. DevRails is currently in active development.
+            © 2026 Elmscorp. DevRails is currently in active development.
           </span>
           <div className="flex items-center gap-3">
             <SocialIcon label="GitHub"><Github className="h-4 w-4" /></SocialIcon>

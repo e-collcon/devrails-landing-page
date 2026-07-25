@@ -1,14 +1,16 @@
 import { AlertTriangle } from "lucide-react";
 
 /* =====================================================================
-   Shared auth primitives — EPIC-016 full-suite variant.
+   Shared auth primitives — EPIC-016.
 
-   Ported from the devrails-uiux prototype ui_kits/auth/index-full-suite.v1.html
-   (email/password + sign-up + reset, alongside Google). This is the
-   TWO-FLOW variant: /signin and /signup are distinct surfaces.
+   The LIVE app ships a Google-only /signin (PRD-001 TASK-155/161); it uses
+   AuthShell, GoogleIcon and Spinner from this module. The remaining exports
+   (Field, validEmail, MOCK_USERS, GoogleModal, Callout) belong to the parked
+   full-suite variant under src/_parked/auth-full-suite/ and are kept here so
+   those files keep resolving if restored.
 
-   PRE-WIRING UI ONLY — no Firebase, no backend. Auth outcomes are driven
-   by MOCK_USERS below. Real wiring is TASK-012, gated on Kate's approval.
+   PRE-WIRING UI ONLY — no Firebase, no backend. Real wiring is TASK-012 /
+   EPIC-017, gated on Kate's approval.
 ===================================================================== */
 
 /** Mock user store. Drives every auth outcome in this prototype. */
@@ -17,10 +19,50 @@ export const MOCK_USERS: Record<string, { pass: string; disabled?: boolean }> = 
   "disabled@collcon.dev": { pass: "rails123", disabled: true },
 };
 
-export type GoogleOutcome = "ok" | "disabled" | "network";
+export type GoogleOutcome = "ok" | "disabled" | "network" | "popup-blocked";
+
+/** Mock Google accounts — each row deterministically drives one outcome.
+    Shared between the sign-in card and the standalone /google-picker popup
+    so both present the same account list. */
+export const GOOGLE_ACCOUNTS: {
+  initials: string;
+  bg: string;
+  name: string;
+  email: string;
+  sub?: string;
+  outcome: GoogleOutcome;
+}[] = [
+  { initials: "EB", bg: "var(--flame)", name: "E. Builder", email: "builder@collcon.dev", outcome: "ok" },
+  { initials: "DA", bg: "var(--ink-muted)", name: "Disabled Account", email: "disabled@collcon.dev", outcome: "disabled" },
+  { initials: "NF", bg: "var(--warning)", name: "Flaky Network", email: "flaky@collcon.dev", sub: "simulates network failure", outcome: "network" },
+  { initials: "PB", bg: "var(--danger)", name: "Blocked Popup", email: "blocked@collcon.dev", sub: "simulates a blocked popup", outcome: "popup-blocked" },
+];
 
 export function validEmail(e: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+}
+
+/** DevRails wordmark shown above the card title (TASK-155/160: the logo
+    belongs inside the card itself, not only in the page chrome). */
+export function AuthLogo() {
+  return (
+    <img
+      src="/devrails-logo-black.png"
+      alt="DevRails"
+      className="mx-auto mb-5 block"
+      style={{ height: 28 }}
+    />
+  );
+}
+
+/** Opens a small, centered popup window — the real signInWithPopup(GoogleAuthProvider)
+    shape (a separate OS window), not an overlay on the current page. Returns
+    null if the browser actually blocked it. */
+export function openCenteredPopup(url: string, name: string, width: number, height: number): Window | null {
+  const top = window.top ?? window;
+  const y = top.outerHeight / 2 + top.screenY - height / 2;
+  const x = top.outerWidth / 2 + top.screenX - width / 2;
+  return window.open(url, name, `width=${width},height=${height},left=${Math.max(0, x)},top=${Math.max(0, y)},resizable=yes,scrollbars=yes`);
 }
 
 /* Multicolour Google "G" — not a Lucide glyph, so inlined. */

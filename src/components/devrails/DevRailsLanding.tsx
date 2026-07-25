@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import {
   ArrowRight,
   Hexagon,
@@ -35,6 +35,7 @@ import {
   Code2,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { AuthModal } from "@/components/devrails/auth/AuthModal";
 
 /* =====================================================================
    DevRails — GCP usage guardrails for builders.
@@ -43,6 +44,13 @@ import { supabase } from "@/lib/supabase";
 
 const SECTION_WRAP = "mx-auto w-full max-w-[1200px] px-6";
 const SECTION_PAD = "py-24 md:py-32";
+
+/* Opens the Get Started / Log In auth modal from any nested component
+   without prop-drilling. Provided by DevRailsLanding(). */
+const AuthModalContext = createContext<() => void>(() => {});
+function useOpenAuthModal() {
+  return useContext(AuthModalContext);
+}
 
 function WordMark({ size = "md" }: { size?: "sm" | "md" }) {
   const text = size === "sm" ? "text-[15px]" : "text-base";
@@ -92,6 +100,7 @@ function AnnouncementBar() {
 
 /* ---------- Nav ---------- */
 function Nav() {
+  const openAuth = useOpenAuthModal();
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/75 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className={`${SECTION_WRAP} flex h-[72px] items-center justify-between`}>
@@ -110,18 +119,20 @@ function Nav() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <a
-            href="/signin"
+          <button
+            type="button"
+            onClick={openAuth}
             className="hidden items-center gap-2 rounded-[10px] border border-border bg-white px-3 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-secondary sm:flex"
           >
             Log In
-          </a>
-          <a
-            href="/signup"
+          </button>
+          <button
+            type="button"
+            onClick={openAuth}
             className="rounded-[10px] bg-ink px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-black"
           >
             Get Started
-          </a>
+          </button>
         </div>
       </div>
     </header>
@@ -130,6 +141,7 @@ function Nav() {
 
 /* ---------- Hero ---------- */
 function Hero() {
+  const openAuth = useOpenAuthModal();
   return (
     <section id="product" className="section-grid relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 tech-grid tech-grid-fade opacity-60" />
@@ -170,12 +182,13 @@ function Hero() {
         </p>
 
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="/signup"
+          <button
+            type="button"
+            onClick={openAuth}
             className="inline-flex items-center gap-2 rounded-[10px] bg-flame px-5 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-flame-hover shadow-flame"
           >
             Get Started <ArrowRight className="h-4 w-4" />
-          </a>
+          </button>
           <a
             href="#how-it-works"
             className="inline-flex items-center gap-2 rounded-[10px] border border-border bg-white px-5 py-3 text-[14px] font-semibold text-ink transition-colors hover:border-flame hover:text-flame hover:bg-flame/5"
@@ -761,6 +774,7 @@ function UseCases() {
 
 /* ---------- 08 Pricing ---------- */
 function Pricing() {
+  const openAuth = useOpenAuthModal();
   const included = [
     "Up to 5 monitored GCP environments/projects",
     "Usage monitoring for supported GCP services",
@@ -820,12 +834,13 @@ function Pricing() {
                 .
               </p>
             </div>
-            <a
-              href="/signup"
+            <button
+              type="button"
+              onClick={openAuth}
               className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-[10px] bg-flame px-4 py-2.5 text-[14px] font-semibold text-white hover:bg-flame-hover shadow-flame"
             >
               Get Started <ArrowRight className="h-4 w-4" />
-            </a>
+            </button>
             <p className="mt-3 text-center font-mono text-[11px] text-white/60">
               // no free tier · no pricing maze · just $1/month for practical GCP guardrails
             </p>
@@ -1360,21 +1375,25 @@ function SocialIcon({
 
 /* ---------- Page ---------- */
 export function DevRailsLanding() {
+  const [authOpen, setAuthOpen] = useState(false);
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <AnnouncementBar />
-      <Nav />
-      <Hero />
-      <TrustCredibility />
-      <Problem />
-      <HowItWorks />
-      <Features />
-      <UseCases />
-      <Pricing />
-      <CollCon />
-      <FAQ />
-      <FinalCTA />
-      <Footer />
-    </main>
+    <AuthModalContext.Provider value={() => setAuthOpen(true)}>
+      <main className="min-h-screen bg-background text-foreground">
+        <AnnouncementBar />
+        <Nav />
+        <Hero />
+        <TrustCredibility />
+        <Problem />
+        <HowItWorks />
+        <Features />
+        <UseCases />
+        <Pricing />
+        <CollCon />
+        <FAQ />
+        <FinalCTA />
+        <Footer />
+      </main>
+      {authOpen ? <AuthModal onClose={() => setAuthOpen(false)} /> : null}
+    </AuthModalContext.Provider>
   );
 }

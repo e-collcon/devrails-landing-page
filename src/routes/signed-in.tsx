@@ -2,9 +2,12 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Check, Gauge, Power } from "lucide-react";
 import { AuthShell } from "@/components/devrails/auth/authShared";
 
-/* EPIC-016 auth-success stub. Deliberately NOT /dashboard — the real
-   dashboard is a separate epic. This only confirms the auth hand-off.
+/* EPIC-016 auth-success stub. Confirms the auth hand-off, then routes to
+   the real product app at app.thedevrails.com (dashboard is a separate,
+   in-progress epic — the target domain may not be live yet).
    Session details below are mock values, not a real Firebase session. */
+
+const DASHBOARD_URL = "https://app.thedevrails.com";
 
 export const Route = createFileRoute("/signed-in")({
   validateSearch: (search: Record<string, unknown>): { email?: string; provider?: string } => ({
@@ -61,7 +64,7 @@ function SignedInPage() {
             </span>
           </div>
           <div className="mt-2.5 font-mono text-[12px] leading-[1.7] text-ink-soft">
-            provider: <span className="text-ink">{provider || "password"}</span>
+            provider: <span className="text-ink">{provider || "google.com"}</span>
             <br />
             uid: dvr_7f3a…c91e
             <br />
@@ -72,9 +75,9 @@ function SignedInPage() {
         <div className="mt-6 flex gap-2.5">
           <button
             className="au-btn au-btn-primary shadow-flame h-11 flex-1 text-[14px]"
-            onClick={() =>
-              alert("Dashboard is a separate epic — this prototype covers EPIC-016 (auth).")
-            }
+            onClick={() => {
+              window.location.href = DASHBOARD_URL;
+            }}
           >
             <Gauge size={16} />
             Go to dashboard

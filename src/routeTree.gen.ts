@@ -10,21 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SigninRouteImport } from './routes/signin'
 import { Route as SignedInRouteImport } from './routes/signed-in'
-import { Route as ResetRouteImport } from './routes/reset'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as GooglePickerRouteImport } from './routes/google-picker'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SigninRoute = SigninRouteImport.update({
@@ -37,14 +31,14 @@ const SignedInRoute = SignedInRouteImport.update({
   path: '/signed-in',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResetRoute = ResetRouteImport.update({
-  id: '/reset',
-  path: '/reset',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GooglePickerRoute = GooglePickerRouteImport.update({
+  id: '/google-picker',
+  path: '/google-picker',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -55,69 +49,56 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/google-picker': typeof GooglePickerRoute
   '/privacy': typeof PrivacyRoute
-  '/reset': typeof ResetRoute
   '/signed-in': typeof SignedInRoute
   '/signin': typeof SigninRoute
-  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/google-picker': typeof GooglePickerRoute
   '/privacy': typeof PrivacyRoute
-  '/reset': typeof ResetRoute
   '/signed-in': typeof SignedInRoute
   '/signin': typeof SigninRoute
-  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/google-picker': typeof GooglePickerRoute
   '/privacy': typeof PrivacyRoute
-  '/reset': typeof ResetRoute
   '/signed-in': typeof SignedInRoute
   '/signin': typeof SigninRoute
-  '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/google-picker'
     | '/privacy'
-    | '/reset'
     | '/signed-in'
     | '/signin'
-    | '/signup'
     | '/terms'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/privacy'
-    | '/reset'
-    | '/signed-in'
-    | '/signin'
-    | '/signup'
-    | '/terms'
+  to: '/' | '/google-picker' | '/privacy' | '/signed-in' | '/signin' | '/terms'
   id:
     | '__root__'
     | '/'
+    | '/google-picker'
     | '/privacy'
-    | '/reset'
     | '/signed-in'
     | '/signin'
-    | '/signup'
     | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GooglePickerRoute: typeof GooglePickerRoute
   PrivacyRoute: typeof PrivacyRoute
-  ResetRoute: typeof ResetRoute
   SignedInRoute: typeof SignedInRoute
   SigninRoute: typeof SigninRoute
-  SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -128,13 +109,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signin': {
@@ -151,18 +125,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignedInRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reset': {
-      id: '/reset'
-      path: '/reset'
-      fullPath: '/reset'
-      preLoaderRoute: typeof ResetRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/google-picker': {
+      id: '/google-picker'
+      path: '/google-picker'
+      fullPath: '/google-picker'
+      preLoaderRoute: typeof GooglePickerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -177,11 +151,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GooglePickerRoute: GooglePickerRoute,
   PrivacyRoute: PrivacyRoute,
-  ResetRoute: ResetRoute,
   SignedInRoute: SignedInRoute,
   SigninRoute: SigninRoute,
-  SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport

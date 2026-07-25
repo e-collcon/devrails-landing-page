@@ -1,3 +1,14 @@
+// @ts-nocheck
+/* eslint-disable */
+/* =====================================================================
+   PARKED — full-suite (email/password + sign-up + reset) auth variant.
+
+   Removed from the live app on 2026-07-24 to comply with PRD-001 EPIC-016
+   scope (TASK-155 / TASK-161): the shipped /signin is Google-only.
+   Preserved here (NOT deleted) so these flows can be restored if product
+   scope changes. Not routed — lives outside src/routes/.
+   Original design source: devrails-uiux ui_kits/auth/index-full-suite.v1.html
+===================================================================== */
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Mail, Check } from "lucide-react";

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   ArrowRight,
-  Hexagon,
   Github,
   Check,
   Bell,
@@ -45,16 +44,13 @@ const SECTION_WRAP = "mx-auto w-full max-w-[1200px] px-6";
 const SECTION_PAD = "py-24 md:py-32";
 
 function WordMark({ size = "md" }: { size?: "sm" | "md" }) {
-  const text = size === "sm" ? "text-[15px]" : "text-base";
+  const height = size === "sm" ? 20 : 24;
   return (
-    <div className="flex items-center gap-2">
-      <span className="grid h-7 w-7 place-items-center rounded-[7px] bg-flame/10">
-        <Hexagon className="h-4 w-4 text-flame" strokeWidth={2.2} />
-      </span>
-      <span className={`${text} font-semibold tracking-tight text-ink`}>
-        DevRails
-      </span>
-    </div>
+    <img
+      src="/devrails-logo-black.png"
+      alt="DevRails"
+      style={{ height, display: "block" }}
+    />
   );
 }
 

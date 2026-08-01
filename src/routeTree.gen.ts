@@ -10,10 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SigninRouteImport } from './routes/signin'
-import { Route as SignedInRouteImport } from './routes/signed-in'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as GooglePickerRouteImport } from './routes/google-picker'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TermsRoute = TermsRouteImport.update({
@@ -21,24 +18,9 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SigninRoute = SigninRouteImport.update({
-  id: '/signin',
-  path: '/signin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SignedInRoute = SignedInRouteImport.update({
-  id: '/signed-in',
-  path: '/signed-in',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GooglePickerRoute = GooglePickerRouteImport.update({
-  id: '/google-picker',
-  path: '/google-picker',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,56 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/google-picker': typeof GooglePickerRoute
   '/privacy': typeof PrivacyRoute
-  '/signed-in': typeof SignedInRoute
-  '/signin': typeof SigninRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/google-picker': typeof GooglePickerRoute
   '/privacy': typeof PrivacyRoute
-  '/signed-in': typeof SignedInRoute
-  '/signin': typeof SigninRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/google-picker': typeof GooglePickerRoute
   '/privacy': typeof PrivacyRoute
-  '/signed-in': typeof SignedInRoute
-  '/signin': typeof SigninRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/google-picker'
-    | '/privacy'
-    | '/signed-in'
-    | '/signin'
-    | '/terms'
+  fullPaths: '/' | '/privacy' | '/terms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/google-picker' | '/privacy' | '/signed-in' | '/signin' | '/terms'
-  id:
-    | '__root__'
-    | '/'
-    | '/google-picker'
-    | '/privacy'
-    | '/signed-in'
-    | '/signin'
-    | '/terms'
+  to: '/' | '/privacy' | '/terms'
+  id: '__root__' | '/' | '/privacy' | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  GooglePickerRoute: typeof GooglePickerRoute
   PrivacyRoute: typeof PrivacyRoute
-  SignedInRoute: typeof SignedInRoute
-  SigninRoute: typeof SigninRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -111,32 +68,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signin': {
-      id: '/signin'
-      path: '/signin'
-      fullPath: '/signin'
-      preLoaderRoute: typeof SigninRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/signed-in': {
-      id: '/signed-in'
-      path: '/signed-in'
-      fullPath: '/signed-in'
-      preLoaderRoute: typeof SignedInRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/google-picker': {
-      id: '/google-picker'
-      path: '/google-picker'
-      fullPath: '/google-picker'
-      preLoaderRoute: typeof GooglePickerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -151,10 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  GooglePickerRoute: GooglePickerRoute,
   PrivacyRoute: PrivacyRoute,
-  SignedInRoute: SignedInRoute,
-  SigninRoute: SigninRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
